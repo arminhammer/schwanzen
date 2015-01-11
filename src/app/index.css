@@ -35,3 +35,18 @@
 .lineNumberTD {
   width: 1%;
 }
+
+.tabBar {
+  position: fixed;
+  right: 0;
+  left: 0;
+  top: 0;
+  border-width: 0 0 1px;
+
+  /* z-index: @zindex-navbar-fixed;
+
+@media (min-width: @grid-float-breakpoint) {
+  border-radius: 0;
+}
+*/
+}
