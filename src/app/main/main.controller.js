@@ -4,29 +4,49 @@ angular.module('schwanzen')
   .controller('MainCtrl', function ($scope, $log) {
 
     var gui;
+    var Tail;
+    var fs;
 
+    // Load node dependencies.  In a try-catch block so that it doesn't break when testing in the browser.
     try {
 
-      var gui = require('nw.gui');
+      gui = require('nw.gui');
+      Tail = require('always-tail');
+      fs = require('fs');
 
     }
     catch(err) {
 
-      $log.debug('Unable to enable gui, disabling...');
-      $log.debug(err);
+      $log.debug('Unable to load node dependencies, disabling...');
 
     }
 
     $scope.tabs = [
-      { title:'Dynamic Title 1', content: [
+
+      /*
+      {
+        filename:'Dynamic Title 1',
+        lines: [
         'Line 1',
         'Line 2'
       ]},
-      { title:'Dynamic Title 2', content: [
+      {
+        filename:'Dynamic Title 2',
+        lines: [
         'Line 3',
         'Line 4'
       ]}
+      */
+
     ];
+
+    $scope.addTabFile = function(fileObject) {
+
+      $scope.tabs.push(fileObject);
+
+      $scope.$applyAsync();
+
+    };
 
     $scope.status = {
 
@@ -71,6 +91,57 @@ angular.module('schwanzen')
 
     };
 
+    $scope.tailFile = function(fileName) {
+
+      $log.debug('Selected ' + fileName);
+
+      if(Tail) {
+
+        if (!fs.existsSync(fileName)) fs.writeFileSync(fileName, "");
+
+        var tail = new Tail(fileName, "\n", { start: 0 });
+
+        $log.debug('tail:');
+        $log.debug(tail);
+
+        var tailFile = {
+
+          filename: fileName,
+          tail: tail,
+          lines: []
+
+        };
+
+        tail.on("line", function(data) {
+
+          $log.debug(data);
+          tailFile.lines.push(data);
+          $scope.$applyAsync();
+
+        });
+
+        tail.on("error", function(error) {
+
+          $log.debug('ERROR: ', error);
+
+        });
+
+        tail.watch();
+
+        $log.debug($scope.tabs);
+
+        $log.debug('Pushing tailFile:');
+        $log.debug(tailFile);
+
+        $scope.addTabFile(tailFile);
+        //$scope.tabs.push(tailFile);
+
+        $log.debug($scope.tabs);
+
+      }
+
+    };
+
     $scope.chooseFile = function() {
 
       $log.debug('Choosing file...');
@@ -93,7 +164,7 @@ angular.module('schwanzen')
 
       callDialog(dialog, function(fileName) {
 
-        $log.debug('Selected ' + fileName);
+        $scope.tailFile(fileName);
 
       });
 

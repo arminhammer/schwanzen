@@ -2,7 +2,9 @@
   "name": "schwanzen",
   "version": "0.0.0",
   "main": "src/index.html",
-  "dependencies": {},
+  "dependencies": {
+    "always-tail": "^0.1.1"
+  },
   "devDependencies": {
     "browser-sync": "~1.7.1",
     "chalk": "~0.5.1",

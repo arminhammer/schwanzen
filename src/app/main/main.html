@@ -22,12 +22,12 @@
         </ul>
       </li>
 
-      <tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disabled="tab.disabled">
+      <tab ng-repeat="tab in tabs" heading="{{tab.filename}}" active="tab.active" disabled="tab.disabled">
 
         <table class="table table-hover ">
           <tbody>
 
-          <tr ng-repeat="line in tab.content">
+          <tr ng-repeat="line in tab.lines track by $index">
             <td class="lineNumberTD">{{ $index }}</td>
             <td>{{ line }}</td>
           </tr>
