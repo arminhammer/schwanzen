@@ -6,13 +6,13 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    
+
     <!-- build:css({.tmp,src}) styles/vendor.css -->
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
     <!-- bower:css -->
     <!-- endbower -->
     <!-- endbuild -->
-    
+
 
     <!-- build:css({.tmp,src}) styles/app.css -->
     <!-- inject:css -->
@@ -23,6 +23,14 @@
     <!-- build:js scripts/modernizr.js -->
     <script src="../bower_components/modernizr/modernizr.js"></script>
     <!-- endbuild -->
+
+    <script id="template/tabs/tab.html" type="text/ng-template">
+      <li ng-class="{active: active, disabled: disabled}">
+        <a href ng-click="select()" tab-heading-transclude>{{heading}}<button class="close" type="button">×</button>
+        </a>
+      </li>
+    </script>
+
   </head>
   <body>
     <!--[if lt IE 10]>
