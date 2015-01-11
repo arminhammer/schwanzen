@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp = require('gulp');
+var shell = require('gulp-shell');
 var NwBuilder = require('node-webkit-builder');
 
 require('require-dir')('./gulp');
@@ -18,11 +19,11 @@ var nw = new NwBuilder({
 nw.on('log',  console.log);
 
 gulp.task('package.json', function() {
-  gulp.src('./src/package.json')
+  gulp.src('./package.json')
     .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('nwbuild', ['build', 'package.json'], function () {
+gulp.task('build-linux', ['clean', 'build', 'package.json'], function () {
 
   // Build returns a promise
   nw.build().then(function () {
@@ -32,3 +33,23 @@ gulp.task('nwbuild', ['build', 'package.json'], function () {
   });
 
 });
+
+// Run project
+gulp.task('nwrun', shell.task([
+'node node_modules/node-webkit-builder/bin/nwbuild --run ./'
+]));
+
+// Compile project
+//gulp.task('build-osx', shell.task([
+//<% if(isWin) { %> 'node node_modules/node-webkit-builder/bin/nwbuild -v 0.10.5 -p osx ./' <% } %><% if(!isWin) { %> 'node node_modules/node-webkit-builder/bin/nwbuild -v 0.10.5 -p osx ./' <% } %>
+//]));
+
+// Compile project
+//gulp.task('build-win', shell.task([
+//<% if(isWin) { %> 'node node_modules/node-webkit-builder/bin/nwbuild -v 0.10.5 -p win ./' <% } %><% if(!isWin) { %> 'node node_modules/node-webkit-builder/bin/nwbuild -v 0.10.5 -p win ./' <% } %>
+//]));
+
+// Compile project
+//gulp.task('build-linux', shell.task([
+//<% if(isWin) { %> 'node node_modules/node-webkit-builder/bin/nwbuild -v 0.10.5 -p linux32,linux64 ./' <% } %><% if(!isWin) { %> 'node node_modules/node-webkit-builder/bin/nwbuild -v 0.10.5 -p linux32,linux64 ./' <% } %>
+//]));
