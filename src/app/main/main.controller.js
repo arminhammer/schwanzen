@@ -1,17 +1,17 @@
 'use strict';
 
 angular.module('schwanzen')
-  .controller('MainCtrl', function ($scope) {
+  .controller('MainCtrl', function ($scope, $log) {
 
     $scope.tabs = [
-      { title:'Dynamic Title 1', content:'Dynamic content 1' },
-      { title:'Dynamic Title 2', content:'Dynamic content 2' },
-    ];
-
-    $scope.items = [
-      'The first choice!',
-      'And another choice for you.',
-      'but wait! A third!'
+      { title:'Dynamic Title 1', content: [
+        'Line 1',
+        'Line 2'
+      ]},
+      { title:'Dynamic Title 2', content: [
+        'Line 3',
+        'Line 4'
+      ]}
     ];
 
     $scope.status = {
