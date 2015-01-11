@@ -58,4 +58,45 @@ angular.module('schwanzen')
 
     };
 
+    var callDialog = function(dialog, callback) {
+
+      dialog.addEventListener('change', function() {
+
+        var result = dialog.value;
+        callback(result);
+
+      }, false);
+
+      dialog.click();
+
+    };
+
+    $scope.chooseFile = function() {
+
+      $log.debug('Choosing file...');
+
+      /*
+       var chooser = $(name);
+       chooser.change(function(evt) {
+       $log.debug($(this).val());
+       });
+
+       chooser.trigger('click');
+       */
+
+      //chooseFile('#fileDialog');
+
+      var dialog = document.createElement('input');
+
+      dialog.type = 'file';
+      dialog.multiple = 'multiple';
+
+      callDialog(dialog, function(fileName) {
+
+        $log.debug('Selected ' + fileName);
+
+      });
+
+    };
+
   });

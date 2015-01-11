@@ -4,7 +4,7 @@
   <div ng-include="'components/navbar/navbar.html'"></div>
   -->
 
-  <input style="display:none;" id="fileDialog" type="file" multiple />
+  <!--<input style="display:none;" id="fileDialog" type="file" multiple />-->
 
   <div>
 
@@ -16,7 +16,7 @@
           <b class="caret"></b>
         </a>
         <ul class="dropdown-menu">
-          <li><a href="#dropdown1" data-toggle="tab">Open File</a></li>
+          <li><a ng-href="#" ng-click="chooseFile()" data-toggle="tab">Open File</a></li>
           <li class="divider"></li>
           <li><a ng-href="#" ng-click="closeApp()" data-toggle="tab">Quit</a></li>
         </ul>
