@@ -3,6 +3,20 @@
 angular.module('schwanzen')
   .controller('MainCtrl', function ($scope, $log) {
 
+    var gui;
+
+    try {
+
+      var gui = require('nw.gui');
+
+    }
+    catch(err) {
+
+      $log.debug('Unable to enable gui, disabling...');
+      $log.debug(err);
+
+    }
+
     $scope.tabs = [
       { title:'Dynamic Title 1', content: [
         'Line 1',
@@ -15,17 +29,33 @@ angular.module('schwanzen')
     ];
 
     $scope.status = {
+
       isopen: false
+
     };
 
     $scope.toggled = function(open) {
+
       $log.log('Dropdown is now: ', open);
+
     };
 
     $scope.toggleDropdown = function($event) {
+
       $event.preventDefault();
       $event.stopPropagation();
       $scope.status.isopen = !$scope.status.isopen;
+
+    };
+
+    $scope.closeApp = function() {
+
+      $log.debug('Closing app...');
+
+      if(gui) {
+        gui.App.quit();
+      }
+
     };
 
   });
