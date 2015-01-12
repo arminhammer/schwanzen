@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('schwanzen')
-  .controller('MainCtrl', function ($scope, $log) {
+  .controller('MainCtrl', function ($scope, $log, $location, $anchorScroll, $timeout) {
 
     var gui;
     var Tail;
@@ -91,6 +91,17 @@ angular.module('schwanzen')
 
     };
 
+    $scope.scrollToBottom = function(tag) {
+
+      $log.debug('Scrolling to %s', tag);
+
+      //$timeout
+      $location.hash(tag);
+      //$log.debug(hash);
+      $anchorScroll();
+
+    };
+
     $scope.tailFile = function(fileName) {
 
       $log.debug('Selected ' + fileName);
@@ -116,6 +127,7 @@ angular.module('schwanzen')
 
           $log.debug(data);
           tailFile.lines.push(data);
+          $scope.scrollToBottom('tabFooter');
           $scope.$applyAsync();
 
         });

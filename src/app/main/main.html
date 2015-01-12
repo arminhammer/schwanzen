@@ -24,6 +24,8 @@
 
       <tab ng-repeat="tab in tabs" heading="{{tab.filename}}" active="tab.active" disabled="tab.disabled">
 
+        <a ng-click="scrollToBottom('tabFooter')">Go to bottom</a>
+
         <table class="table table-hover ">
           <tbody>
 
@@ -38,7 +40,10 @@
 
     </tabset>
 
+    <div><a id="tabFooter"></a>Footer</div>
+
   </div>
+
 
   <!--
   <div class="jumbotron text-center">
