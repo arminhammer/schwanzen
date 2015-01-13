@@ -130,7 +130,7 @@ angular.module('schwanzen')
 
         if (!fs.existsSync(fileName)) fs.writeFileSync(fileName, "");
 
-        var tail = new Tail(fileName, "\n", { start: 0 });
+        var tail = new Tail(fileName, "\n", { start: 0, interval: 1000 });
 
         $log.debug('tail:');
         $log.debug(tail);
@@ -148,7 +148,7 @@ angular.module('schwanzen')
           $log.debug(data);
           tailFile.lines.push(data);
           $scope.scrollToBottom('tabFooter');
-          $scope.$applyAsync();
+          $scope.$apply();
 
         });
 

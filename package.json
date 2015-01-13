@@ -1,9 +1,60 @@
 {
   "name": "schwanzen",
   "version": "0.0.0",
-  "main": "src/index.html",
+  "main": "index.html",
   "dependencies": {
     "always-tail": "^0.1.1"
+  },
+  "window": {
+    "frame": true,
+    "toolbar": true
+  },
+  "platformOverrides": {
+    "win": {
+      "window": {
+        "toolbar": false
+      }
+    },
+    "win32": {
+      "window": {
+        "toolbar": false
+      }
+    },
+    "win64": {
+      "window": {
+        "toolbar": false
+      }
+    },
+    "osx": {
+      "window": {
+        "toolbar": false
+      }
+    },
+    "osx32": {
+      "window": {
+        "toolbar": false
+      }
+    },
+    "osx64": {
+      "window": {
+        "toolbar": false
+      }
+    },
+    "linux": {
+      "window": {
+        "toolbar": false
+      }
+    },
+    "linux32": {
+      "window": {
+        "toolbar": false
+      }
+    },
+    "linux64": {
+      "window": {
+        "toolbar": false
+      }
+    }
   },
   "devDependencies": {
     "browser-sync": "~1.7.1",
