@@ -2,6 +2,7 @@
 
 angular.module('schwanzen', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ui.router', 'ui.bootstrap'])
   .config(function ($stateProvider, $urlRouterProvider) {
+
     $stateProvider
       .state('home', {
         url: '/',

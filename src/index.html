@@ -26,13 +26,16 @@
   <script src="../bower_components/modernizr/modernizr.js"></script>
   <!-- endbuild -->
 
+  <!--
   <script id="template/tabs/tab.html" type="text/ng-template">
     <li ng-class="{active: active, disabled: disabled}">
-      <a href ng-click="select()" tab-heading-transclude>{{heading}}<button class="close" type="button">×</button>
-      </a>
+      <a href ng-click="select()" tab-heading-transclude>{{heading}}<button class="close" type="button" ng-click="closeTab()">×</button>
+        </a>
     </li>
   </script>
+  -->
 
+  <!--
   <script id="template/tabs/tabset.html" type="text/ng-template">
     <div>
       <ul class="nav nav-{{type || 'tabs'}} tabBar" ng-class="{'nav-stacked': vertical, 'nav-justified': justified}" ng-transclude></ul>
@@ -45,6 +48,7 @@
       </div>
     </div>
   </script>
+  -->
 
 </head>
 <body>

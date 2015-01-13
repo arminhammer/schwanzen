@@ -8,7 +8,7 @@
 
   <div>
 
-    <tabset>
+    <tabset id="tabBar">
 
       <li class="dropdown" dropdown on-toggle="toggled(open)">
         <a href class="dropdown-toggle" dropdown-toggle>
@@ -24,13 +24,19 @@
 
       <tab ng-repeat="tab in tabs" heading="{{tab.filename}}" active="tab.active" disabled="tab.disabled">
 
+        <tab-heading>
+          <a href ng-click="select()">{{tab.filename}}<button class="close" type="button" ng-click="closeTab(tab.filename)">×</button>
+          </a>
+        </tab-heading>
+        <!--
         <a ng-click="scrollToBottom('tabFooter')">Go to bottom</a>
+        -->
 
         <table class="table table-hover ">
           <tbody>
 
           <tr ng-repeat="line in tab.lines track by $index">
-            <td class="lineNumberTD">{{ $index }}</td>
+            <td class="lineNumberTD"><i>{{ $index }}</i></td>
             <td>{{ line }}</td>
           </tr>
           </tbody>
@@ -40,7 +46,7 @@
 
     </tabset>
 
-    <div><a id="tabFooter"></a>Footer</div>
+    <div><a id="tabFooter"></a></div>
 
   </div>
 

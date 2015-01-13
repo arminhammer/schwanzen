@@ -36,7 +36,7 @@
   width: 1%;
 }
 
-.tabBar {
+#tabBar > ul {
   position: fixed;
   right: 0;
   left: 0;
@@ -60,4 +60,9 @@ position: fixed;
 
 .tab-content {
   margin-top: 40px;
+}
+
+#tabBar > ul > li.active > a > tab-heading > a, a:hover, a:focus {
+  text-decoration: none;
+  color: #FFF;
 }
