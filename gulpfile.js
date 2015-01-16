@@ -13,7 +13,8 @@ gulp.task('default', ['clean'], function () {
 var nw = new NwBuilder({
   files: './dist/**/**', // use the glob format
   platforms: ['linux64'],
-  buildDir: './nwdist'
+  buildDir: './nwdist',
+  version: 'v0.11.4'
 });
 
 nw.on('log',  console.log);
