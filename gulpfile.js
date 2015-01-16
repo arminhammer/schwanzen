@@ -14,7 +14,7 @@ var nw = new NwBuilder({
   files: './dist/**/**', // use the glob format
   platforms: ['linux64'],
   buildDir: './nwdist',
-  version: 'v0.11.4'
+  //version: 'v0.11.4'
 });
 
 nw.on('log',  console.log);
@@ -30,7 +30,7 @@ gulp.task('move-node-modules', function() {
 });
 
 
-gulp.task('build-linux', ['clean', 'build', 'package.json', 'move-node-modules'], function () {
+gulp.task('package', ['package.json', 'move-node-modules'], function () {
 
   // Build returns a promise
   nw.build().then(function () {

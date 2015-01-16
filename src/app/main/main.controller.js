@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('schwanzen')
-  .controller('MainCtrl', function ($scope, $log, $location, $anchorScroll, $timeout) {
+  .controller('MainCtrl', function ($scope, $log, $location, $anchorScroll) {
 
     var gui;
     var Tail;
@@ -23,6 +23,7 @@ angular.module('schwanzen')
 
     $scope.tabs = {};
 
+    /*
     $scope.tabs['Dynamic Title 1'] = {
       filename:'Dynamic Title 1',
       lines: [
@@ -36,6 +37,7 @@ angular.module('schwanzen')
         'Line 3',
         'Line 4'
       ]};
+    */
 
     $scope.addTab = function(file) {
 
@@ -128,9 +130,13 @@ angular.module('schwanzen')
 
       if(Tail) {
 
-        if (!fs.existsSync(fileName)) fs.writeFileSync(fileName, "");
+        if (!fs.existsSync(fileName)) {
 
-        var tail = new Tail(fileName, "\n", { start: 0, interval: 1000 });
+          fs.writeFileSync(fileName, '');
+
+        }
+
+        var tail = new Tail(fileName, '\n', { start: 0, interval: 1000 });
 
         $log.debug('tail:');
         $log.debug(tail);
@@ -143,7 +149,7 @@ angular.module('schwanzen')
 
         };
 
-        tail.on("line", function(data) {
+        tail.on('line', function(data) {
 
           $log.debug(data);
           tailFile.lines.push(data);
@@ -152,7 +158,7 @@ angular.module('schwanzen')
 
         });
 
-        tail.on("error", function(error) {
+        tail.on('error', function(error) {
 
           $log.debug('ERROR: ', error);
 

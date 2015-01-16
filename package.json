@@ -1,7 +1,7 @@
 {
   "name": "schwanzen",
-  "version": "0.0.0",
-  "main": "index.html",
+  "version": "0.0.1",
+  "main": "src/index.html",
   "dependencies": {
     "always-tail": "^0.1.1"
   },
@@ -53,7 +53,8 @@
     "linux64": {
       "window": {
         "toolbar": false
-      }
+      },
+      "main": "index.html"
     }
   },
   "devDependencies": {
