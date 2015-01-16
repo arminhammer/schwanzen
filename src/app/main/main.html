@@ -25,7 +25,10 @@
       <tab ng-repeat="tab in tabs" heading="{{tab.filename}}" active="tab.active" disabled="tab.disabled">
 
         <tab-heading>
-          <a href ng-click="select()">{{tab.filename}}<button class="close" type="button" ng-click="closeTab(tab.filename)">×</button>
+          <a href ng-click="select()">
+            <span class="tabHeaderText">{{tab.filename}}</span>
+            <span class="badge newLineBadge">{{ getNewLines(tab) }}</span>
+            <button class="close" type="button" ng-click="closeTab(tab.filename)">×</button>
           </a>
         </tab-heading>
         <!--

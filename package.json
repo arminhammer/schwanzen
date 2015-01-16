@@ -13,42 +13,50 @@
     "win": {
       "window": {
         "toolbar": false
-      }
+      },
+      "main": "index.html"
     },
     "win32": {
       "window": {
         "toolbar": false
-      }
+      },
+      "main": "index.html"
     },
     "win64": {
       "window": {
         "toolbar": false
-      }
+      },
+      "main": "index.html"
     },
     "osx": {
       "window": {
         "toolbar": false
-      }
+      },
+      "main": "index.html"
     },
     "osx32": {
       "window": {
         "toolbar": false
-      }
+      },
+      "main": "index.html"
     },
     "osx64": {
       "window": {
         "toolbar": false
-      }
+      },
+      "main": "index.html"
     },
     "linux": {
       "window": {
         "toolbar": false
-      }
+      },
+      "main": "index.html"
     },
     "linux32": {
       "window": {
         "toolbar": false
-      }
+      },
+      "main": "index.html"
     },
     "linux64": {
       "window": {

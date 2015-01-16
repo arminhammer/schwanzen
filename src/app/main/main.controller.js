@@ -23,21 +23,43 @@ angular.module('schwanzen')
 
     $scope.tabs = {};
 
-    /*
+
     $scope.tabs['Dynamic Title 1'] = {
       filename:'Dynamic Title 1',
       lines: [
         'Line 1',
         'Line 2'
-      ]};
+      ],
+      newLines: 0
+    };
+
 
     $scope.tabs['Dynamic Title 2'] = {
       filename:'Dynamic Title 2',
       lines: [
         'Line 3',
         'Line 4'
-      ]};
-    */
+      ],
+      newLines: 5
+    };
+
+    $scope.getNewLines = function(tab) {
+      if(tab.active) {
+
+        tab.newLines = 0;
+        return null;
+
+      }
+      else if(tab.newLines == 0) {
+
+          return null;
+      }
+      else {
+
+        return tab.newLines;
+
+      }
+    };
 
     $scope.addTab = function(file) {
 
@@ -50,6 +72,8 @@ angular.module('schwanzen')
     $scope.closeTab = function(file) {
 
       $log.debug('Closing tab %s', file);
+
+      $log.debug($scope.tabs);
 
       if($scope.tabs[file].tail) {
 
@@ -145,7 +169,8 @@ angular.module('schwanzen')
 
           filename: fileName,
           tail: tail,
-          lines: []
+          lines: [],
+          newLines: 0
 
         };
 
@@ -153,6 +178,7 @@ angular.module('schwanzen')
 
           $log.debug(data);
           tailFile.lines.push(data);
+          tailFile.newLines++;
           $scope.scrollToBottom('tabFooter');
           $scope.$apply();
 
