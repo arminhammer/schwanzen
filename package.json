@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "main": "index.html",
   "dependencies": {
-    "always-tail": "^0.1.1"
+    "always-tail": "^0.1.1",
+    "express": "^4.11.0"
   },
   "window": {
     "frame": true,
