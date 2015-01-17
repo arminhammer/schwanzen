@@ -108,12 +108,12 @@ position: fixed;
 
 /* Styles go here */
 /* set reference point */
-.tab-animation > .tab-content {
+.tabset-animation > .tab-content {
   /*position: relative;*/
 }
 
 /* set animate effect */
-.tab-animation > .tab-content > .tab-pane{
+.tabset-animation > .tab-content > .tab-pane{
   -webkit-transition: 200ms cubic-bezier(0.000, 0.000, 0.580, 1.000) all;
   -moz-transition: 200ms cubic-bezier(0.000, 0.000, 0.580, 1.000) all;
   -ms-transition: 200ms cubic-bezier(0.000, 0.000, 0.580, 1.000) all;
@@ -122,7 +122,7 @@ position: fixed;
 }
 
 /* overwrite display: none and remove from document flow */
-.tab-animation > .tab-content > .tab-pane.active-remove {
+.tabset-animation > .tab-content > .tab-pane.active-remove {
 
   /*position: absolute;
 
@@ -133,7 +133,7 @@ position: fixed;
 }
 
 /* opacity=0 when removing "active" class */
-.tab-animation > .tab-content > .tab-pane.active-remove-active {
+.tabset-animation > .tab-content > .tab-pane.active-remove-active {
 
   opacity: 0;
   top:0;
@@ -141,9 +141,37 @@ position: fixed;
 }
 
 /* opacity=0 when adding "active" class */
-.tab-animation > .tab-content > .tab-pane.active-add {
+.tabset-animation > .tab-content > .tab-pane.active-add {
 
   opacity: 0;
   top: 0;
 
+}
+
+.line-animate.ng-enter, .line-animate.ng-move{
+  -webkit-animation: zoomInDown 500ms;
+  -moz-animation: zoomInDown 500ms;
+  -o-animation: zoomInDown 500ms;
+  animation: zoomInDown 500ms;
+}
+
+.line-animate.ng-leave{
+  -webkit-animation: fadeOut 1s;
+  -moz-animation: fadeOut 1s;
+  -o-animation: fadeOut 1s;
+  animation: fadeOut 1s;
+}
+
+.tablist-animate.ng-enter, .tablist-animate.ng-move{
+  -webkit-animation: zoomIn 1s;
+  -moz-animation: zoomIn 1s;
+  -o-animation: zoomIn 1s;
+  animation: zoomIn 1s;
+}
+
+.tablist-animate.ng-leave{
+  -webkit-animation: zoomOut 1s;
+  -moz-animation: zoomOut 1s;
+  -o-animation: zoomOut 1s;
+  animation: zoomOut 1s;
 }

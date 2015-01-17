@@ -8,7 +8,7 @@
 
   <div>
 
-    <tabset id="tabBar" class="tab-animation">
+    <tabset id="tabBar" class="tabset-animation">
 
       <li class="dropdown" dropdown on-toggle="toggled(open)">
         <a href class="dropdown-toggle" dropdown-toggle>
@@ -22,12 +22,12 @@
         </ul>
       </li>
 
-      <tab ng-repeat="tab in tabs" heading="{{tab.filename}}" active="tab.active" disabled="tab.disabled">
+      <tab ng-repeat="tab in tabs" heading="{{tab.filename}}" active="tab.active" disabled="tab.disabled" class="tablist-animate">
 
         <tab-heading>
           <a href ng-click="select()">
             <span class="tabHeaderText">{{tab.filename}}</span>
-            <span class="badge newLineBadge">{{ getNewLines(tab) }}</span>
+            <span class="badge newLineBadge animated bounceIn">{{ getNewLines(tab) }}</span>
             <button class="close" type="button" ng-click="closeTab(tab.filename)">×</button>
           </a>
         </tab-heading>
@@ -38,7 +38,7 @@
         <table class="table table-hover ">
           <tbody>
 
-          <tr ng-repeat="line in tab.lines track by $index">
+          <tr ng-repeat="line in tab.lines track by $index" class="line-animate">
             <td class="lineNumberTD"><i>{{ $index }}</i></td>
             <td>{{ line }}</td>
           </tr>
