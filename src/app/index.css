@@ -58,6 +58,15 @@ position: fixed;
 
 }
 
+#tabFooter {
+
+  display: block;
+  position: relative;
+  bottom: 0px;
+  visibility: hidden;
+
+}
+
 .tab-content {
   margin-top: 40px;
 }
@@ -149,29 +158,31 @@ position: fixed;
 }
 
 .line-animate.ng-enter, .line-animate.ng-move{
-  -webkit-animation: zoomInDown 500ms;
-  -moz-animation: zoomInDown 500ms;
-  -o-animation: zoomInDown 500ms;
-  animation: zoomInDown 500ms;
+  -webkit-animation: fadeIn 500ms;
+  -moz-animation: fadeIn 500ms;
+  -o-animation: fadeIn 500ms;
+  animation: fadeIn 500ms;
 }
 
+/*
 .line-animate.ng-leave{
   -webkit-animation: fadeOut 1s;
   -moz-animation: fadeOut 1s;
   -o-animation: fadeOut 1s;
   animation: fadeOut 1s;
 }
+*/
 
 .tablist-animate.ng-enter, .tablist-animate.ng-move{
-  -webkit-animation: zoomIn 1s;
-  -moz-animation: zoomIn 1s;
-  -o-animation: zoomIn 1s;
-  animation: zoomIn 1s;
+  -webkit-animation: zoomIn 500ms;
+  -moz-animation: zoomIn 500ms;
+  -o-animation: zoomIn 500ms;
+  animation: zoomIn 500ms;
 }
 
 .tablist-animate.ng-leave{
-  -webkit-animation: zoomOut 1s;
-  -moz-animation: zoomOut 1s;
-  -o-animation: zoomOut 1s;
-  animation: zoomOut 1s;
+  -webkit-animation: zoomOut 500ms;
+  -moz-animation: zoomOut 500ms;
+  -o-animation: zoomOut 500ms;
+  animation: zoomOut 500ms;
 }
