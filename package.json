@@ -8,10 +8,10 @@
   "window": {
     "frame": true,
     "toolbar": true,
-    "width": 800,
+    "width": 1000,
     "height": 500,
     "position": "mouse",
-    "min_width": 700,
+    "min_width": 1000,
     "min_height": 300
   },
   "platformOverrides": {

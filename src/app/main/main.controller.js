@@ -29,8 +29,8 @@ angular.module('schwanzen')
     $scope.tabs['Dynamic Title 1'] = {
       filename:'Dynamic Title 1',
       lines: [
-        'Line 1',
-        'Line 2'
+        {number: 1, data: 'Line 1'},
+        {number: 2, data: 'Line 2'}
       ],
       newLines: 0
     };
@@ -39,18 +39,18 @@ angular.module('schwanzen')
     $scope.tabs['Dynamic Title 2'] = {
       filename:'Dynamic Title 2',
       lines: [
-        'Line 1',
-        'Line 2',
-        'Line 3',
-        'Line 3',
-        'Line 4',
-        'Line 5',
-        'Line 6',
-        'Line 7',
-        'Line 8',
-        'Line 9',
-        'Line 10',
-        'Line 11'
+        {number: 1, data: 'Line 1'},
+        {number: 2, data: 'Line 2'},
+        {number: 3, data: 'Line 3'},
+        {number: 4, data: 'Line 4'},
+        {number: 5, data: 'Line 5'},
+        {number: 6, data: 'Line 6'},
+        {number: 7, data: 'Line 7'},
+        {number: 8, data: 'Line 8'},
+        {number: 9, data: 'Line 9'},
+        {number: 10, data: 'Line 10'},
+        {number: 11, data: 'Line 11'},
+        {number: 12, data: 'Line 12'}
       ],
       newLines: 5
     };
@@ -154,8 +154,8 @@ angular.module('schwanzen')
       $log.debug('Scrolling to %s', tag);
 
       //$timeout
-      var hash = $location.hash(tag);
-      $log.debug(hash);
+      $location.hash(tag);
+      //$log.debug(hash);
       $anchorScroll();
 
     };
@@ -177,6 +177,8 @@ angular.module('schwanzen')
         $log.debug('tail:');
         $log.debug(tail);
 
+        var lineNumber = 1;
+
         var tailFile = {
 
           filename: fileName,
@@ -193,8 +195,9 @@ angular.module('schwanzen')
           if(tailFile.lines.length > $scope.tailLengthMax) {
             tailFile.lines.shift();
           }
-          tailFile.lines.push(data);
+          tailFile.lines.push({number: lineNumber, data: data});
           tailFile.newLines++;
+          lineNumber++;
           $scope.scrollToBottom('tabFooter');
           $scope.$apply();
 

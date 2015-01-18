@@ -189,6 +189,12 @@
   width: 40px;
 }
 
+#tabContent > table > tbody > tr > td.lineBodyTD {
+  /*width: 100%;
+  display:table;
+  white-space: pre-wrap;
+  word-wrap: break-word;*/
+}
 
 #searchLi {
   float:right;
