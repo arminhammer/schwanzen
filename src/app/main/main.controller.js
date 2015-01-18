@@ -21,8 +21,9 @@ angular.module('schwanzen')
 
     }
 
-    $scope.tabs = {};
+    $scope.tailLengthMax = 1000;
 
+    $scope.tabs = {};
 
     $scope.tabs['Dynamic Title 1'] = {
       filename:'Dynamic Title 1',
@@ -187,6 +188,10 @@ angular.module('schwanzen')
         tail.on('line', function(data) {
 
           $log.debug(data);
+
+          if(tailFile.lines.length > $scope.tailLengthMax) {
+            tailFile.lines.shift();
+          }
           tailFile.lines.push(data);
           tailFile.newLines++;
           $scope.scrollToBottom('tabFooter');
