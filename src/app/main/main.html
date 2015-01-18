@@ -35,15 +35,27 @@
         <a ng-click="scrollToBottom('tabFooter')">Go to bottom</a>
         -->
 
-        <table class="table table-hover ">
-          <tbody>
+        <!--        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-          <tr ng-repeat="line in tab.lines | filter:searchQuery track by $index" class="line-animate">
-            <td class="lineNumberTD"><i>{{ $index }}</i></td>
-            <td>{{ line }}</td>
-          </tr>
-          </tbody>
-        </table>
+          <div class="well" id="tabContent">
+
+            <table class="table table-hover ">
+              <tbody>
+              <tr ng-repeat="line in tab.lines | filter:searchQuery track by $index" class="line-animate">
+                <td class="lineNumberTD"><i>{{ $index }}</i></td>
+                <td>{{ line }}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <!--
+
+          -->
+        </div>
+
+
+        <!--<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>-->
 
       </tab>
 
@@ -58,8 +70,8 @@
         </tab-heading>
 
         <div class="row">
-          <div class="col-xs-4 col-sm-4 col-md-4"></div>
-          <div class="col-xs-4 col-sm-4 col-md-4">
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"></div>
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <div class="well" id="settingContents">
 
               <h1>Settings</h1>
@@ -72,11 +84,11 @@
                   <label for="updateInterval">File Polling Inteval (in milliseconds)</label>
                   <input type="number" class="form-control" id="updateInterval" ng-model="updateInterval">
                 </div>
-                </form>
+              </form>
             </div>
 
           </div>
-          <div class="col-xs-4 col-sm-4 col-md-4"></div>
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"></div>
         </div>
 
       </tab>
