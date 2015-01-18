@@ -22,6 +22,7 @@ angular.module('schwanzen')
     }
 
     $scope.tailLengthMax = 1000;
+    $scope.updateInterval = 1000;
 
     $scope.tabs = {};
 
@@ -171,7 +172,7 @@ angular.module('schwanzen')
 
         }
 
-        var tail = new Tail(fileName, '\n', { start: 0, interval: 1000 });
+        var tail = new Tail(fileName, '\n', { start: 0, interval: $scope.updateInterval });
 
         $log.debug('tail:');
         $log.debug(tail);

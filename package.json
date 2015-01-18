@@ -7,7 +7,12 @@
   },
   "window": {
     "frame": true,
-    "toolbar": true
+    "toolbar": true,
+    "width": 800,
+    "height": 500,
+    "position": "mouse",
+    "min_width": 700,
+    "min_height": 300
   },
   "platformOverrides": {
     "win": {
