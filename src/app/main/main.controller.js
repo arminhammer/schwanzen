@@ -154,8 +154,8 @@ angular.module('schwanzen')
       $log.debug('Scrolling to %s', tag);
 
       //$timeout
-      $location.hash(tag);
-      //$log.debug(hash);
+      var hash = $location.hash(tag);
+      $log.debug(hash);
       $anchorScroll();
 
     };

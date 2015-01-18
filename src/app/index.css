@@ -56,7 +56,7 @@
 }
 
 .tab-content {
-  margin-top: 40px;
+  margin-top: 10px;
 }
 
 #tabBar > ul > li > a > tab-heading > a, a:hover, a:focus {
@@ -212,15 +212,15 @@
 
 #settingContents {
 
-  margin-top: 10%;
+  /*margin-top: 10%;*/
 
 }
 
 #tabContent {
-  margin-top: 1%;
-  z-index: -10;
+  /*margin-top: 0%;
+  z-index: -10;*/
 }
 
 .dropdown {
-  z-index: 10;
+  /*  z-index: 10;*/
 }
