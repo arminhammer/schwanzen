@@ -189,7 +189,7 @@ position: fixed;
 
 #tabBar > div > div.tab-pane > table > tbody > tr > td {
   padding-bottom: 4px;
-  padding-top: 4px;
+  padding-top: 6px;
   padding-left: 7px;
   padding-right: 7px;
   border-top-width: 0px;
@@ -200,4 +200,20 @@ position: fixed;
   border-right-width: 1px;
   border-right-color: #DDDDDD;
 
+}
+
+#searchLi {
+  float:right;
+}
+
+#searchForm {
+  margin-top: 5px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#searchInput {
+  color: #FFF;
 }

@@ -38,7 +38,7 @@
         <table class="table table-hover ">
           <tbody>
 
-          <tr ng-repeat="line in tab.lines track by $index" class="line-animate">
+          <tr ng-repeat="line in tab.lines | filter:searchQuery track by $index" class="line-animate">
             <td class="lineNumberTD"><i>{{ $index }}</i></td>
             <td>{{ line }}</td>
           </tr>
@@ -46,6 +46,16 @@
         </table>
 
       </tab>
+
+      <li id="searchLi">
+        <form class="form-inline" id="searchForm">
+          <div class="form-group">
+            <div class="input-group">
+              <input type="text" class="form-control" id="searchInput" ng-model="searchQuery" placeholder="Search">
+            </div>
+          </div>
+        </form>
+      </li>
 
     </tabset>
 
