@@ -186,3 +186,18 @@ position: fixed;
   -o-animation: zoomOut 500ms;
   animation: zoomOut 500ms;
 }
+
+#tabBar > div > div.tab-pane > table > tbody > tr > td {
+  padding-bottom: 4px;
+  padding-top: 4px;
+  padding-left: 7px;
+  padding-right: 7px;
+  border-top-width: 0px;
+}
+
+#tabBar > div > div.tab-pane > table > tbody > tr > td.lineNumberTD {
+  border-right: solid;
+  border-right-width: 1px;
+  border-right-color: #DDDDDD;
+
+}
