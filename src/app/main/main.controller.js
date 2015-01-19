@@ -26,6 +26,7 @@ angular.module('schwanzen')
 
     $scope.tabs = {};
 
+    /*
     $scope.tabs['Dynamic Title 1'] = {
       filename:'Dynamic Title 1',
       lines: [
@@ -54,6 +55,7 @@ angular.module('schwanzen')
       ],
       newLines: 5
     };
+    */
 
     $scope.getNewLines = function(tab) {
       if(tab.active) {
@@ -179,9 +181,13 @@ angular.module('schwanzen')
 
         var lineNumber = 1;
 
+        var nameArr = fileName.split('/');
+        var shortName = nameArr[nameArr.length-1];
+
         var tailFile = {
 
-          filename: fileName,
+          filename: shortName,
+          path: fileName,
           tail: tail,
           lines: [],
           newLines: 0
