@@ -10,6 +10,58 @@
 
     <tabset id="tabBar" class="tabset-animation">
 
+      <li><a ng-href="#" ng-click="chooseFile()" data-toggle="tab">
+        <span class="tabHeaderText">
+              <i class="mdi-file-folder"></i></span>
+        </span>
+      </a></li>
+
+
+      <tab class="tablist-animate" id="settingsTab">
+
+        <tab-heading>
+          <a href ng-click="select()">
+            <span class="tabHeaderText">
+              <i class="mdi-action-settings"></i></span>
+            </span>
+          </a>
+        </tab-heading>
+
+        <div class="row">
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"></div>
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="well" id="settingContents">
+
+              <h1>Settings</h1>
+              <form>
+                <div class="form-group">
+                  <label for="tailLengthMax">Number of lines to tail</label>
+                  <input type="number" class="form-control" id="tailLengthMax" ng-model="tailLengthMax">
+                </div>
+                <div class="form-group">
+                  <label for="updateInterval">File Polling Inteval (in milliseconds)</label>
+                  <input type="number" class="form-control" id="updateInterval" ng-model="updateInterval">
+                </div>
+              </form>
+            </div>
+
+          </div>
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"></div>
+        </div>
+
+      </tab>
+
+      <li id="searchLi">
+        <form class="form-inline" id="searchForm">
+          <div class="form-group">
+            <div class="input-group">
+              <input type="text" class="form-control" id="searchInput" ng-model="searchQuery" placeholder="Search">
+            </div>
+          </div>
+        </form>
+      </li>
+
+      <!--
       <li class="dropdown" dropdown on-toggle="toggled(open)">
         <a href class="dropdown-toggle" dropdown-toggle>
           File
@@ -21,6 +73,7 @@
           <li><a ng-href="#" ng-click="closeApp()" data-toggle="tab">Quit</a></li>
         </ul>
       </li>
+      -->
 
       <tab ng-repeat="tab in tabs" heading="{{tab.filename}}" active="tab.active" disabled="tab.disabled" class="tablist-animate">
 
@@ -55,55 +108,9 @@
           -->
         </div>
 
-
         <!--<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>-->
 
       </tab>
-
-      <tab class="tablist-animate" id="settingsTab">
-
-        <tab-heading>
-          <a href ng-click="select()">
-            <span class="tabHeaderText">
-              <i class="mdi-action-settings"></i></span>
-            </span>
-          </a>
-        </tab-heading>
-
-        <div class="row">
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"></div>
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            <div class="well" id="settingContents">
-
-              <h1>Settings</h1>
-              <form>
-                <div class="form-group">
-                  <label for="tailLengthMax">Number of lines to tail (in milliseconds)</label>
-                  <input type="number" class="form-control" id="tailLengthMax" ng-model="tailLengthMax">
-                </div>
-                <div class="form-group">
-                  <label for="updateInterval">File Polling Inteval (in milliseconds)</label>
-                  <input type="number" class="form-control" id="updateInterval" ng-model="updateInterval">
-                </div>
-              </form>
-            </div>
-
-          </div>
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"></div>
-        </div>
-
-      </tab>
-
-
-      <li id="searchLi">
-        <form class="form-inline" id="searchForm">
-          <div class="form-group">
-            <div class="input-group">
-              <input type="text" class="form-control" id="searchInput" ng-model="searchQuery" placeholder="Search">
-            </div>
-          </div>
-        </form>
-      </li>
 
     </tabset>
 

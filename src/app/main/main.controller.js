@@ -27,35 +27,35 @@ angular.module('schwanzen')
     $scope.tabs = {};
 
     /*
-    $scope.tabs['Dynamic Title 1'] = {
-      filename:'Dynamic Title 1',
-      lines: [
-        {number: 1, data: 'Line 1'},
-        {number: 2, data: 'Line 2'}
-      ],
-      newLines: 0
-    };
+     $scope.tabs['Dynamic Title 1'] = {
+     filename:'Dynamic Title 1',
+     lines: [
+     {number: 1, data: 'Line 1'},
+     {number: 2, data: 'Line 2'}
+     ],
+     newLines: 0
+     };
 
 
-    $scope.tabs['Dynamic Title 2'] = {
-      filename:'Dynamic Title 2',
-      lines: [
-        {number: 1, data: 'Line 1'},
-        {number: 2, data: 'Line 2'},
-        {number: 3, data: 'Line 3'},
-        {number: 4, data: 'Line 4'},
-        {number: 5, data: 'Line 5'},
-        {number: 6, data: 'Line 6'},
-        {number: 7, data: 'Line 7'},
-        {number: 8, data: 'Line 8'},
-        {number: 9, data: 'Line 9'},
-        {number: 10, data: 'Line 10'},
-        {number: 11, data: 'Line 11'},
-        {number: 12, data: 'Line 12'}
-      ],
-      newLines: 5
-    };
-    */
+     $scope.tabs['Dynamic Title 2'] = {
+     filename:'Dynamic Title 2',
+     lines: [
+     {number: 1, data: 'Line 1'},
+     {number: 2, data: 'Line 2'},
+     {number: 3, data: 'Line 3'},
+     {number: 4, data: 'Line 4'},
+     {number: 5, data: 'Line 5'},
+     {number: 6, data: 'Line 6'},
+     {number: 7, data: 'Line 7'},
+     {number: 8, data: 'Line 8'},
+     {number: 9, data: 'Line 9'},
+     {number: 10, data: 'Line 10'},
+     {number: 11, data: 'Line 11'},
+     {number: 12, data: 'Line 12'}
+     ],
+     newLines: 5
+     };
+     */
 
     $scope.getNewLines = function(tab) {
       if(tab.active) {
@@ -66,7 +66,7 @@ angular.module('schwanzen')
       }
       else if(tab.newLines == 0) {
 
-          return null;
+        return null;
       }
       else {
 
@@ -166,6 +166,9 @@ angular.module('schwanzen')
 
       $log.debug('Selected ' + fileName);
 
+      var start = Date.now();
+      $log.debug('start: ' + start);
+
       if(Tail) {
 
         if (!fs.existsSync(fileName)) {
@@ -225,18 +228,21 @@ angular.module('schwanzen')
 
         });
 
-        tail.watch();
-
         $log.debug($scope.tabs);
 
         $log.debug('Pushing tailFile:');
         $log.debug(tailFile);
 
         $scope.addTab(tailFile);
+
+        tail.watch();
+
         //$scope.tabs.push(tailFile);
 
-        $log.debug($scope.tabs);
+        //$log.debug($scope.tabs);
 
+        var end = Date.now();
+        $log.debug('end: ' + end + ", elapsed: " + (end - start));
       }
 
     };
