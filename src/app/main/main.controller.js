@@ -55,7 +55,7 @@ angular.module('schwanzen')
      ],
      newLines: 5
      };
-     */
+*/
 
     $scope.getNewLines = function(tab) {
       if(tab.active) {
