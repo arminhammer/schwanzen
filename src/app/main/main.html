@@ -6,16 +6,15 @@
 
   <!--<input style="display:none;" id="fileDialog" type="file" multiple />-->
 
-  <div>
+  <!--<div>-->
+  <div scrolling-tabs-wrapper>
 
-    <tabset id="tabBar" class="tabset-animation" style="overflow: hidden">
+    <tabset id="tabBar" class="tabset-animation">
 
       <li><a ng-href="#" ng-click="chooseFile()" data-toggle="tab">
         <span class="tabHeaderText">
               <i class="mdi-file-folder"></i></span>
-        </span>
       </a></li>
-
 
       <tab class="tablist-animate" id="settingsTab">
 
@@ -23,7 +22,6 @@
           <a href ng-click="select()">
             <span class="tabHeaderText">
               <i class="mdi-action-settings"></i></span>
-            </span>
           </a>
         </tab-heading>
 
@@ -60,7 +58,6 @@
           </div>
         </form>
       </li>
-
       <!--
       <li class="dropdown" dropdown on-toggle="toggled(open)">
         <a href class="dropdown-toggle" dropdown-toggle>
@@ -103,24 +100,27 @@
             </table>
 
           </div>
-          <!--
-
-          -->
-
 
         </div>
 
-        <!--<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>-->
-
         <div><a id="tabFooter">Footer</a></div>
 
-
       </tab>
+      <!--
+      <li class="dropdown" dropdown on-toggle="toggled(open)">
+        <a href class="dropdown-toggle" dropdown-toggle>
+          More
+          <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+          <li ng-repeat="tab in tabs"><a ng-href="#" data-toggle="tab">{{ tab.filename }}</a></li>
+        </ul>
+      </li>
+      -->
 
     </tabset>
 
   </div>
-
 
   <!--
   <div class="jumbotron text-center">

@@ -26,7 +26,7 @@ angular.module('schwanzen')
 
     $scope.tabs = {};
 
-    /*
+
      $scope.tabs['Dynamic Title 1'] = {
      filename:'Dynamic Title 1',
      lines: [
@@ -55,7 +55,44 @@ angular.module('schwanzen')
      ],
      newLines: 5
      };
-*/
+
+    $scope.tabs['Dynamic Title 3'] = {
+      filename:'Dynamic Title 3',
+      lines: [
+        {number: 1, data: 'Line 1'},
+        {number: 2, data: 'Line 2'}
+      ],
+      newLines: 0
+    };
+
+    $scope.tabs['Dynamic Title 4'] = {
+      filename:'Dynamic Title 4',
+      lines: [
+        {number: 1, data: 'Line 1'},
+        {number: 2, data: 'Line 2'}
+      ],
+      newLines: 0
+    };
+
+    $scope.tabs['Dynamic Title 5'] = {
+      filename:'Dynamic Title 5',
+      lines: [
+        {number: 1, data: 'Line 1'},
+        {number: 2, data: 'Line 2'}
+      ],
+      newLines: 0
+    };
+
+
+    $scope.tabs['Dynamic Title 6'] = {
+      filename:'Dynamic Title 6',
+      lines: [
+        {number: 1, data: 'Line 1'},
+        {number: 2, data: 'Line 2'}
+      ],
+      newLines: 0
+    };
+
 
     $scope.getNewLines = function(tab) {
       if(tab.active) {

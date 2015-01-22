@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('schwanzen', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ui.router', 'ui.bootstrap'])
+angular.module('schwanzen', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ui.router', 'ui.bootstrap', 'mj.scrollingTabs'])
   .config(function ($stateProvider, $urlRouterProvider) {
 
     $stateProvider
