@@ -190,7 +190,8 @@ angular.module('schwanzen')
           path: fileName,
           tail: tail,
           lines: [],
-          newLines: 0
+          newLines: 0,
+          active: false
 
         };
 
@@ -199,12 +200,21 @@ angular.module('schwanzen')
           $log.debug(data);
 
           if(tailFile.lines.length > $scope.tailLengthMax) {
+
             tailFile.lines.shift();
+
           }
+
           tailFile.lines.push({number: lineNumber, data: data});
           tailFile.newLines++;
           lineNumber++;
-          $scope.scrollToBottom('tabFooter');
+
+          if(tailFile.active) {
+
+            $scope.scrollToBottom('tabFooter');
+
+          }
+
           $scope.$apply();
 
         });
