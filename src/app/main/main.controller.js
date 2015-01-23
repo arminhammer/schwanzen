@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('schwanzen')
-  .controller('MainCtrl', function ($scope, $log, $location, $anchorScroll) {
+  .controller('MainCtrl', function ($scope, $log, $location, $anchorScroll, $document) {
 
     var gui;
     var Tail;
@@ -101,7 +101,7 @@ angular.module('schwanzen')
         return null;
 
       }
-      else if(tab.newLines == 0) {
+      else if(tab.newLines === 0) {
 
         return null;
       }
@@ -208,17 +208,21 @@ angular.module('schwanzen')
 
       if(Tail) {
 
-        if (!fs.accessSync(fileName, fs.F_OK, function(err) {
+        fs.accessSync(fileName, fs.F_OK, function(err) {
 
-          $log.debug('Error opening file: ' + err);
-          fs.writeFileSync(fileName, '');
+          if(err) {
 
-        }))
+            $log.debug('Error opening file: ' + err);
+            fs.writeFileSync(fileName, '');
 
-        var tail = new Tail(fileName, '\n', { start: 0, interval: $scope.updateInterval });
+          }
+
+        });
+
+        var tailRef = new Tail(fileName, '\n', { start: 0, interval: $scope.updateInterval });
 
         $log.debug('tail:');
-        $log.debug(tail);
+        $log.debug(tailRef);
 
         var lineNumber = 1;
 
@@ -229,14 +233,14 @@ angular.module('schwanzen')
 
           filename: shortName,
           path: fileName,
-          tail: tail,
+          tail: tailRef,
           lines: [],
           newLines: 0,
           active: false
 
         };
 
-        tail.on('line', function(data) {
+        tailRef.on('line', function(data) {
 
           $log.debug(data);
 
@@ -260,7 +264,7 @@ angular.module('schwanzen')
 
         });
 
-        tail.on('error', function(error) {
+        tailRef.on('error', function(error) {
 
           $log.debug('ERROR: ', error);
 
@@ -273,14 +277,15 @@ angular.module('schwanzen')
 
         $scope.addTab(tailFile);
 
-        tail.watch();
+        tailRef.watch();
 
         //$scope.tabs.push(tailFile);
 
         //$log.debug($scope.tabs);
 
         var end = Date.now();
-        $log.debug('end: ' + end + ", elapsed: " + (end - start));
+        $log.debug('end: ' + end + ', elapsed: ' + (end - start));
+
       }
 
     };
@@ -300,7 +305,7 @@ angular.module('schwanzen')
 
       //chooseFile('#fileDialog');
 
-      var dialog = document.createElement('input');
+      var dialog = $document.createElement('input');
 
       dialog.type = 'file';
       dialog.multiple = 'multiple';
