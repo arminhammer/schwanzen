@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('schwanzen')
-  .controller('MainCtrl', function ($scope, $log) {
+  .controller('MainCtrl', ['$scope', '$log', 'TailFactory', function ($scope, $log, TailFactory) {
 
     var gui;
     var Tail;
@@ -21,40 +21,44 @@ angular.module('schwanzen')
 
     }
 
+    var testFact = new TailFactory('file');
+    //var testName = testFact.hello('Armin');
+    $log.debug(testFact.val);
+
     $scope.tailLengthMax = 1000;
     $scope.updateInterval = 1000;
 
     $scope.tabs = {};
 
 
-     $scope.tabs['Dynamic Title 1'] = {
-     filename:'Dynamic Title 1',
-     lines: [
-     {number: 1, data: 'Line 1'},
-     {number: 2, data: 'Line 2'}
-     ],
-     newLines: 0
-     };
+    $scope.tabs['Dynamic Title 1'] = {
+      filename:'Dynamic Title 1',
+      lines: [
+        {number: 1, data: 'Line 1'},
+        {number: 2, data: 'Line 2'}
+      ],
+      newLines: 0
+    };
 
 
-     $scope.tabs['Dynamic Title 2'] = {
-     filename:'Dynamic Title 2',
-     lines: [
-     {number: 1, data: 'Line 1'},
-     {number: 2, data: 'Line 2'},
-     {number: 3, data: 'Line 3'},
-     {number: 4, data: 'Line 4'},
-     {number: 5, data: 'Line 5'},
-     {number: 6, data: 'Line 6'},
-     {number: 7, data: 'Line 7'},
-     {number: 8, data: 'Line 8'},
-     {number: 9, data: 'Line 9'},
-     {number: 10, data: 'Line 10'},
-     {number: 11, data: 'Line 11'},
-     {number: 12, data: 'Line 12'}
-     ],
-     newLines: 5
-     };
+    $scope.tabs['Dynamic Title 2'] = {
+      filename:'Dynamic Title 2',
+      lines: [
+        {number: 1, data: 'Line 1'},
+        {number: 2, data: 'Line 2'},
+        {number: 3, data: 'Line 3'},
+        {number: 4, data: 'Line 4'},
+        {number: 5, data: 'Line 5'},
+        {number: 6, data: 'Line 6'},
+        {number: 7, data: 'Line 7'},
+        {number: 8, data: 'Line 8'},
+        {number: 9, data: 'Line 9'},
+        {number: 10, data: 'Line 10'},
+        {number: 11, data: 'Line 11'},
+        {number: 12, data: 'Line 12'}
+      ],
+      newLines: 5
+    };
 
     $scope.tabs['Dynamic Title 3'] = {
       filename:'Dynamic Title 3',
@@ -286,4 +290,4 @@ angular.module('schwanzen')
 
     };
 
-  });
+  }]);
