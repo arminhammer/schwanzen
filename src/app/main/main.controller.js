@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('schwanzen')
-  .controller('MainCtrl', function ($scope, $log, $location, $anchorScroll, $document) {
+  .controller('MainCtrl', function ($scope, $log) {
 
     var gui;
     var Tail;
@@ -188,17 +188,6 @@ angular.module('schwanzen')
 
     };
 
-    $scope.scrollToBottom = function(tag) {
-
-      $log.debug('Scrolling to %s', tag);
-
-      //$timeout
-      $location.hash(tag);
-      //$log.debug(hash);
-      $anchorScroll();
-
-    };
-
     $scope.tailFile = function(fileName) {
 
       $log.debug('Selected ' + fileName);
@@ -254,12 +243,6 @@ angular.module('schwanzen')
           tailFile.newLines++;
           lineNumber++;
 
-          if(tailFile.active) {
-
-            $scope.scrollToBottom('tabFooter');
-
-          }
-
           $scope.$apply();
 
         });
@@ -279,10 +262,6 @@ angular.module('schwanzen')
 
         tailRef.watch();
 
-        //$scope.tabs.push(tailFile);
-
-        //$log.debug($scope.tabs);
-
         var end = Date.now();
         $log.debug('end: ' + end + ', elapsed: ' + (end - start));
 
@@ -294,18 +273,7 @@ angular.module('schwanzen')
 
       $log.debug('Choosing file...');
 
-      /*
-       var chooser = $(name);
-       chooser.change(function(evt) {
-       $log.debug($(this).val());
-       });
-
-       chooser.trigger('click');
-       */
-
-      //chooseFile('#fileDialog');
-
-      var dialog = $document.createElement('input');
+      var dialog = document.createElement('input');
 
       dialog.type = 'file';
       dialog.multiple = 'multiple';
@@ -319,14 +287,3 @@ angular.module('schwanzen')
     };
 
   });
-  /*
-  .directive('navitab', function($log) {
-    return function (scope, element, attrs) {
-      var navHeight = $("#tabBar > ul");
-      $log.debug(navHeight);
-      $log.debug('navHeight is now ' + navHeight);
-
-      //element.height($(window).height() - $('.header').outerHeight());
-    }
-  });
-  */
