@@ -134,18 +134,18 @@ angular.module('schwanzen')
     return (TailFactory);
 
   }])
-  .service("TailEventService",function($rootScope) {
+  .service('TailEventService',function($rootScope) {
 
     this.broadcast = function() {
 
-      $rootScope.$broadcast("line")
+      $rootScope.$broadcast('line');
 
     };
 
     this.listen = function(callback) {
 
-      $rootScope.$on("line",callback)
+      $rootScope.$on('line',callback);
 
-    }
+    };
 
   });
