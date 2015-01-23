@@ -21,41 +21,16 @@ angular.module('schwanzen')
 
     }
 
-    var testFact = new TailFactory('file');
-    //var testName = testFact.hello('Armin');
-    $log.debug(testFact.val);
-
+    // How many lines to keep in a tail file before removing them.
     $scope.tailLengthMax = 1000;
+    //Interval to wait before polling the file again
     $scope.updateInterval = 1000;
 
+    // Object that references all of the current tabs.
     $scope.tabs = {};
 
-    $scope.tabs['All'] = new TailFactory({
-      filename: 'All',
-      lines: [],
-      newLines: 0,
-      active: true
-    });
-
-    $scope.tabs['Tab1'] = new TailFactory({
-      filename: 'Tab1',
-      lines: [
-        {number: 1, data: 'Line 1'},
-        {number: 2, data: 'Line 2'}
-      ],
-      newLines: 0
-    });
-
-    $scope.tabs['Tab2'] = new TailFactory({
-      filename: 'Tab2',
-      lines: [
-        {number: 1, data: 'Line 3'},
-        {number: 2, data: 'Line 4'}
-      ],
-      newLines: 5
-    });
-
     $scope.getNewLines = function(tab) {
+
       if(tab.active) {
 
         tab.newLines = 0;
@@ -65,36 +40,64 @@ angular.module('schwanzen')
       else if(tab.newLines === 0) {
 
         return null;
+
       }
       else {
 
         return tab.newLines;
 
       }
-    };
-
-    $scope.addTab = function(file) {
-
-      $scope.tabs[file.filename] = new TailFactory(file);
-      $scope.$applyAsync();
 
     };
 
-    $scope.closeTab = function(file) {
+    $scope.addTab = function(filename, callback) {
 
-      if($scope.tabs[file].tail) {
+      $log.debug('Adding tab ' + filename);
 
-        $scope.tabs[file].tail.unwatch();
-        $scope.tabs[file].tail.closeCurrent(function() {
+      $scope.tabs[filename] = new TailFactory(filename, function() {
 
-          delete $scope.tabs[file];
+        $scope.$applyAsync();
+
+        if (typeof callback === 'function') {
+
+          callback();
+
+        }
+
+      });
+
+    };
+
+    $scope.addTab('All', function() {
+      $log.debug('Created All tab.');
+    });
+
+    $scope.addTab('Tab1', function() {
+      $log.debug('Created Tab1 tab.');
+    });
+
+
+    $scope.closeTab = function(filename, callback) {
+
+      if($scope.tabs[filename].tail) {
+
+        $scope.tabs[filename].tail.unwatch();
+        $scope.tabs[filename].tail.closeCurrent(function() {
+
+          delete $scope.tabs[filename];
 
         });
 
       }
       else {
 
-        delete $scope.tabs[file];
+        delete $scope.tabs[filename];
+
+      }
+
+      if (typeof callback === 'function') {
+
+        callback();
 
       }
 
@@ -105,92 +108,16 @@ angular.module('schwanzen')
       dialog.addEventListener('change', function() {
 
         var result = dialog.value;
-        callback(result);
+
+        if (typeof callback === 'function') {
+
+          callback(result);
+
+        }
 
       }, false);
 
       dialog.click();
-
-    };
-
-    $scope.tailFile = function(fileName) {
-
-      $log.debug('Selected ' + fileName);
-
-      var start = Date.now();
-      $log.debug('start: ' + start);
-
-      if(Tail) {
-
-        fs.accessSync(fileName, fs.F_OK, function(err) {
-
-          if(err) {
-
-            $log.debug('Error opening file: ' + err);
-            fs.writeFileSync(fileName, '');
-
-          }
-
-        });
-
-        var tailRef = new Tail(fileName, '\n', { start: 0, interval: $scope.updateInterval });
-
-        $log.debug('tail:');
-        $log.debug(tailRef);
-
-        var lineNumber = 1;
-
-        var nameArr = fileName.split('/');
-        var shortName = nameArr[nameArr.length-1];
-
-        var tailFile = {
-
-          filename: shortName,
-          path: fileName,
-          tail: tailRef,
-          lines: [],
-          newLines: 0,
-          active: false
-
-        };
-
-        tailRef.on('line', function(data) {
-
-          $log.debug(data);
-
-          if(tailFile.lines.length > $scope.tailLengthMax) {
-
-            tailFile.lines.shift();
-
-          }
-
-          tailFile.lines.push({number: lineNumber, data: data});
-          tailFile.newLines++;
-          lineNumber++;
-
-          $scope.$apply();
-
-        });
-
-        tailRef.on('error', function(error) {
-
-          $log.debug('ERROR: ', error);
-
-        });
-
-        $log.debug($scope.tabs);
-
-        $log.debug('Pushing tailFile:');
-        $log.debug(tailFile);
-
-        $scope.addTab(tailFile);
-
-        tailRef.watch();
-
-        var end = Date.now();
-        $log.debug('end: ' + end + ', elapsed: ' + (end - start));
-
-      }
 
     };
 
@@ -205,7 +132,11 @@ angular.module('schwanzen')
 
       callDialog(dialog, function(fileName) {
 
-        $scope.tailFile(fileName);
+        $scope.addTab(fileName, function() {
+
+          $log.debug('Added ' + fileName);
+
+        });
 
       });
 

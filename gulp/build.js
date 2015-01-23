@@ -95,7 +95,6 @@ gulp.task('images', function () {
 });
 
 gulp.task('fonts', function () {
-  console.log($.mainBowerFiles());
   return gulp.src($.mainBowerFiles())
     .pipe($.filter('**/*.{eot,svg,ttf,woff}'))
     .pipe($.flatten())
