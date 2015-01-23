@@ -208,11 +208,12 @@ angular.module('schwanzen')
 
       if(Tail) {
 
-        if (!fs.existsSync(fileName)) {
+        if (!fs.accessSync(fileName, fs.F_OK, function(err) {
 
+          $log.debug('Error opening file: ' + err);
           fs.writeFileSync(fileName, '');
 
-        }
+        }))
 
         var tail = new Tail(fileName, '\n', { start: 0, interval: $scope.updateInterval });
 
@@ -312,7 +313,8 @@ angular.module('schwanzen')
 
     };
 
-  })
+  });
+  /*
   .directive('navitab', function($log) {
     return function (scope, element, attrs) {
       var navHeight = $("#tabBar > ul");
@@ -322,3 +324,4 @@ angular.module('schwanzen')
       //element.height($(window).height() - $('.header').outerHeight());
     }
   });
+  */

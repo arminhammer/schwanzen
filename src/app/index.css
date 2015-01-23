@@ -133,6 +133,7 @@
   /*position: relative;*/
 }
 
+
 /* set animate effect */
 .tabset-animation > .tab-content > .tab-pane{
   -webkit-transition: 300ms cubic-bezier(0.000, 0.000, 0.580, 1.000) all;
@@ -150,14 +151,14 @@
   width: 100%;
   display: block;
   */
-  top: 100%;
+  top: 90%;
 }
 
 /* opacity=0 when removing "active" class */
 .tabset-animation > .tab-content > .tab-pane.active-remove-active {
 
   opacity: 0;
-  top:0;
+  top:60px;
 
 }
 
@@ -165,7 +166,7 @@
 .tabset-animation > .tab-content > .tab-pane.active-add {
 
   opacity: 0;
-  top: 0;
+  top: 60px;
 
 }
 
