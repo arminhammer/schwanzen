@@ -312,4 +312,13 @@ angular.module('schwanzen')
 
     };
 
+  })
+  .directive('navitab', function($log) {
+    return function (scope, element, attrs) {
+      var navHeight = $("#tabBar > ul");
+      $log.debug(navHeight);
+      $log.debug('navHeight is now ' + navHeight);
+
+      //element.height($(window).height() - $('.header').outerHeight());
+    }
   });

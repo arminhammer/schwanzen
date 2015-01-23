@@ -16,10 +16,20 @@
 .nav-tabs {
   background: #005B95;
 
+  /*
   white-space: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
   min-height: 42px;
+  */
+
+  position: absolute;
+  top: 0px;
+  /*bottom: 0;*/
+  right: 0;
+  left: 0;
+  overflow:auto;
+  height: 42px;
 }
 
 .nav-tabs > li .close {
