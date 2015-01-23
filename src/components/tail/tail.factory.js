@@ -5,11 +5,21 @@ angular.module('schwanzen')
 
     var TailFactory = function(file){
 
-      this.val = '';
+      this.filename;
+      this.lines;
+      this.newLines;
+      this.path;
+      this.tail;
+      this.active;
 
       this.init = function () {
 
-        this.val = "New Value";
+        this.filename = file.filename;
+        this.lines = file.lines;
+        this.newLines = file.newLines;
+        this.path = file.path;
+        this.tail = file.tail;
+        this.active = file.active;
 
       };
 

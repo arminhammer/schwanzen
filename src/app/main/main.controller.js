@@ -30,73 +30,30 @@ angular.module('schwanzen')
 
     $scope.tabs = {};
 
+    $scope.tabs['All'] = new TailFactory({
+      filename: 'All',
+      lines: [],
+      newLines: 0,
+      active: true
+    });
 
-    $scope.tabs['Dynamic Title 1'] = {
-      filename:'Dynamic Title 1',
+    $scope.tabs['Tab1'] = new TailFactory({
+      filename: 'Tab1',
       lines: [
         {number: 1, data: 'Line 1'},
         {number: 2, data: 'Line 2'}
       ],
       newLines: 0
-    };
+    });
 
-
-    $scope.tabs['Dynamic Title 2'] = {
-      filename:'Dynamic Title 2',
+    $scope.tabs['Tab2'] = new TailFactory({
+      filename: 'Tab2',
       lines: [
-        {number: 1, data: 'Line 1'},
-        {number: 2, data: 'Line 2'},
-        {number: 3, data: 'Line 3'},
-        {number: 4, data: 'Line 4'},
-        {number: 5, data: 'Line 5'},
-        {number: 6, data: 'Line 6'},
-        {number: 7, data: 'Line 7'},
-        {number: 8, data: 'Line 8'},
-        {number: 9, data: 'Line 9'},
-        {number: 10, data: 'Line 10'},
-        {number: 11, data: 'Line 11'},
-        {number: 12, data: 'Line 12'}
+        {number: 1, data: 'Line 3'},
+        {number: 2, data: 'Line 4'}
       ],
       newLines: 5
-    };
-
-    $scope.tabs['Dynamic Title 3'] = {
-      filename:'Dynamic Title 3',
-      lines: [
-        {number: 1, data: 'Line 1'},
-        {number: 2, data: 'Line 2'}
-      ],
-      newLines: 0
-    };
-
-    $scope.tabs['Dynamic Title 4'] = {
-      filename:'Dynamic Title 4',
-      lines: [
-        {number: 1, data: 'Line 1'},
-        {number: 2, data: 'Line 2'}
-      ],
-      newLines: 0
-    };
-
-    $scope.tabs['Dynamic Title 5'] = {
-      filename:'Dynamic Title 5',
-      lines: [
-        {number: 1, data: 'Line 1'},
-        {number: 2, data: 'Line 2'}
-      ],
-      newLines: 0
-    };
-
-
-    $scope.tabs['Dynamic Title 6'] = {
-      filename:'Dynamic Title 6',
-      lines: [
-        {number: 1, data: 'Line 1'},
-        {number: 2, data: 'Line 2'}
-      ],
-      newLines: 0
-    };
-
+    });
 
     $scope.getNewLines = function(tab) {
       if(tab.active) {
@@ -118,24 +75,18 @@ angular.module('schwanzen')
 
     $scope.addTab = function(file) {
 
-      $scope.tabs[file.filename] = file;
-
+      $scope.tabs[file.filename] = new TailFactory(file);
       $scope.$applyAsync();
 
     };
 
     $scope.closeTab = function(file) {
 
-      $log.debug('Closing tab %s', file);
-
-      $log.debug($scope.tabs);
-
       if($scope.tabs[file].tail) {
 
         $scope.tabs[file].tail.unwatch();
         $scope.tabs[file].tail.closeCurrent(function() {
 
-          $log.debug('Closed file descripter for %s', file.filename);
           delete $scope.tabs[file];
 
         });
