@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('schwanzen')
-  .factory('TailFactory', ['$log', function($log) {
+  .factory('TailFactory', ['$log', 'TailEventService', function($log, TailEventService) {
 
     var fs;
     var Tail;
@@ -18,14 +18,81 @@ angular.module('schwanzen')
 
     }
 
+    var getTail = function(tab, callback) {
+
+      if(Tail && fs) {
+
+        fs.access(tab.path, fs.R_OK, function (err) {
+
+          if (err) {
+
+            $log.debug('Error opening file: ' + err);
+            //fs.writeFileSync(fileName, '');
+            return null;
+
+          }
+
+        });
+
+        //$log.debug('this:');
+        //$log.debug(this);
+
+        var tail = new Tail(tab.path, '\n', {start: 0, interval: tab.updateInterval });
+        tab.currentLineNumber = 1;
+
+        $log.debug('tail:');
+        $log.debug(tail);
+
+        tail.on('line', function (data) {
+
+          //$log.debug(data);
+
+          if (tab.lines.length > tab.tailLengthMax) {
+
+            tab.lines.shift();
+
+          }
+
+          tab.lines.push({number: tab.currentLineNumber, data: data});
+          tab.newLines++;
+          tab.currentLineNumber++;
+
+          TailEventService.broadcast();
+          //$scope.$apply();
+
+        });
+
+        tail.on('error', function (error) {
+
+          $log.debug('ERROR: ', error);
+
+        });
+
+        //$scope.addTab(tailFile);
+
+        tail.watch();
+
+        tab.tail = tail;
+
+        if (typeof callback === 'function') {
+
+          callback();
+
+        }
+
+      }
+
+
+    };
+
+
     var TailFactory = function(filename, callback){
 
       this.init = function () {
 
         var nameArr = filename.split('/');
-        var shortName = nameArr[nameArr.length-1];
 
-        this.filename = shortName;
+        this.filename = nameArr[nameArr.length-1];
         this.lines = [];
         this.newLines = 0;
         this.path = filename;
@@ -34,54 +101,11 @@ angular.module('schwanzen')
         this.updateInterval = 1000;
         this.currentLineNumber = 1;
 
-        if(Tail && fs) {
+        getTail(this, function() {
 
-          fs.accessSync(filename, fs.R_OK, function (err) {
+          $log.debug('Added tail.');
 
-            if (err) {
-
-              $log.debug('Error opening file: ' + err);
-              //fs.writeFileSync(fileName, '');
-
-            }
-
-          });
-
-          this.tail = new Tail(filename, '\n', { start: 0, interval: this.updateInterval });
-          this.currentLineNumber = 1;
-
-          $log.debug('tail:');
-          $log.debug(this.tail);
-
-          this.tail.on('line', function(data) {
-
-            $log.debug(data);
-
-            if(this.lines.length > this.tailLengthMax) {
-
-              this.lines.shift();
-
-            }
-
-            this.lines.push({number: this.currentLineNumber, data: data});
-            this.newLines++;
-            this.currentLineNumber++;
-
-            //$scope.$apply();
-
-          });
-
-          this.tail.on('error', function(error) {
-
-            $log.debug('ERROR: ', error);
-
-          });
-
-          //$scope.addTab(tailFile);
-
-          this.tail.watch();
-
-        }
+        });
 
       };
 
@@ -109,4 +133,19 @@ angular.module('schwanzen')
 
     return (TailFactory);
 
-  }]);
+  }])
+  .service("TailEventService",function($rootScope) {
+
+    this.broadcast = function() {
+
+      $rootScope.$broadcast("line")
+
+    };
+
+    this.listen = function(callback) {
+
+      $rootScope.$on("line",callback)
+
+    }
+
+  });

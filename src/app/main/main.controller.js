@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('schwanzen')
-  .controller('MainCtrl', ['$scope', '$log', 'TailFactory', function ($scope, $log, TailFactory) {
+  .controller('MainCtrl', ['$scope', '$log', 'TailFactory', 'TailEventService', function ($scope, $log, TailFactory, TailEventService) {
 
     var gui;
     var Tail;
@@ -54,9 +54,15 @@ angular.module('schwanzen')
 
       $log.debug('Adding tab ' + filename);
 
-      $scope.tabs[filename] = new TailFactory(filename, function() {
+      $scope.tabs[filename] = new TailFactory(filename, function(newTab) {
+
+        $log.debug('newLines: ' + newTab.newLines);
+
+        //$scope.$watch(newTab.newLines);
+        //$scope.$watch(newTab.lines);
 
         $scope.$applyAsync();
+
 
         if (typeof callback === 'function') {
 
@@ -66,8 +72,12 @@ angular.module('schwanzen')
 
       });
 
+      //$scope.$watch($scope.tabs[filename]);
+      //$scope.$watch($scope.tabs[filename].lines);
+
     };
 
+    /*
     $scope.addTab('All', function() {
       $log.debug('Created All tab.');
     });
@@ -75,7 +85,7 @@ angular.module('schwanzen')
     $scope.addTab('Tab1', function() {
       $log.debug('Created Tab1 tab.');
     });
-
+    */
 
     $scope.closeTab = function(filename, callback) {
 
@@ -102,6 +112,13 @@ angular.module('schwanzen')
       }
 
     };
+
+    TailEventService.listen(function() {
+
+      $log.debug('Updating view!');
+      $scope.$applyAsync();
+
+    });
 
     var callDialog = function(dialog, callback) {
 
