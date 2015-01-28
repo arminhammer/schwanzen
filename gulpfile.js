@@ -20,8 +20,9 @@ var nw = new NwBuilder({
 nw.on('log',  console.log);
 
 gulp.task('package.json', function() {
-  gulp.src('./package.json')
+  var stream = gulp.src('./package.json')
     .pipe(gulp.dest('./dist'));
+  return stream;
 });
 
 gulp.task('move-node-modules', function() {
