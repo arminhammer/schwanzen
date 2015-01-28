@@ -18,6 +18,43 @@ angular.module('schwanzen')
 
     }
 
+    /**
+     * Parse the string to see if it contains a date string.  If it does, return the date string.
+     * Otherwise return null.
+     * @param data
+     * @returns {*}
+     */
+    function parseForDate(data) {
+
+      // The date patterns
+      var patterns = [
+        /\w{3} \w{3} \d{2} \d{2}:\d{2}:\d{2} \w{3} \d{4}/,
+      ];
+
+      var count = 0;
+
+      // Loop through the patterns and search for a date string until one is found.
+      while(count < patterns.length) {
+
+        var match = patterns[count].exec(data);
+
+        if(match) {
+
+          // Return the date if it can be made into a Date object that is valid
+          if(!isNaN(new Date(match).valueOf())) {
+            return match[0];
+          }
+
+        }
+
+        count++;
+
+      }
+
+      return null;
+
+    }
+
     var getTail = function(tab, callback) {
 
       if(Tail && fs) {
@@ -59,7 +96,9 @@ angular.module('schwanzen')
 
           }
 
-          tab.lines.push({number: tab.currentLineNumber, data: data});
+          var parsedDate = parseForDate(data);
+          $log.debug('parsedDate: ' + parsedDate);
+          tab.lines.push({number: tab.currentLineNumber, date: parsedDate, data: data});
           tab.newLines++;
           tab.currentLineNumber++;
 
