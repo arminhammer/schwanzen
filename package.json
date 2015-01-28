@@ -8,8 +8,8 @@
   "window": {
     "frame": true,
     "toolbar": true,
-    "width": 1000,
-    "height": 500,
+    "width": 1400,
+    "height": 800,
     "position": "mouse",
     "min_width": 1000,
     "min_height": 300

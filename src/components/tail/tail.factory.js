@@ -22,18 +22,24 @@ angular.module('schwanzen')
 
       if(Tail && fs) {
 
-        fs.access(tab.path, fs.R_OK, function (err) {
+        try {
 
-          if (err) {
+          fs.access(tab.path, fs.R_OK, function (err) {
 
-            $log.debug('Error opening file: ' + err);
-            //fs.writeFileSync(fileName, '');
-            return null;
+            if (err) {
 
-          }
+              $log.debug('Error opening file: ' + err);
+              //fs.writeFileSync(fileName, '');
+              return null;
 
-        });
+            }
 
+          });
+
+        }
+        catch(err) {
+          $log.debug('There was an error checking the existence of the file: ' + err);
+        }
         //$log.debug('this:');
         //$log.debug(this);
 
