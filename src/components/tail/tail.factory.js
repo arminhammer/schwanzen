@@ -15,6 +15,7 @@ angular.module('schwanzen')
     catch(err) {
 
       $log.debug('Unable to load node dependencies, disabling...');
+      $log.debug(err);
 
     }
 

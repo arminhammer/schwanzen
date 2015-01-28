@@ -4,20 +4,17 @@ angular.module('schwanzen')
   .controller('MainCtrl', ['$scope', '$log', 'TailFactory', 'TailEventService', function ($scope, $log, TailFactory, TailEventService) {
 
     var gui;
-    var Tail;
-    var fs;
 
     // Load node dependencies.  In a try-catch block so that it doesn't break when testing in the browser.
     try {
 
       gui = require('nw.gui');
-      Tail = require('always-tail');
-      fs = require('fs');
 
     }
     catch(err) {
 
       $log.debug('Unable to load node dependencies, disabling...');
+      $log.debug(err);
 
     }
 
