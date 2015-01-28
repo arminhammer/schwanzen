@@ -25,11 +25,14 @@ angular.module('schwanzen')
      * @param data
      * @returns {*}
      */
-    function parseForDate(data) {
+    function parseForDate(data, callback) {
 
       // The date patterns
       var patterns = [
         /\w{3} \w{3} \d{2} \d{2}:\d{2}:\d{2} \w{3} \d{4}/,
+        /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} \w{3}/,
+        /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.\d{3}/,
+        /\d{4}\/\d{2}\/\d{2} \d{2}:\d{2}:\d{2}/
       ];
 
       var count = 0;
@@ -43,7 +46,10 @@ angular.module('schwanzen')
 
           // Return the date if it can be made into a Date object that is valid
           if(!isNaN(new Date(match).valueOf())) {
-            return match[0];
+
+            callback(match[0]);
+            return;
+
           }
 
         }
@@ -52,7 +58,7 @@ angular.module('schwanzen')
 
       }
 
-      return null;
+      callback(null);
 
     }
 
@@ -97,14 +103,20 @@ angular.module('schwanzen')
 
           }
 
-          var parsedDate = parseForDate(data);
-          $log.debug('parsedDate: ' + parsedDate);
-          tab.lines.push({number: tab.currentLineNumber, date: parsedDate, data: data});
-          tab.newLines++;
-          tab.currentLineNumber++;
+          parseForDate(data, function(parsedDate) {
 
-          TailEventService.broadcast();
-          //$scope.$apply();
+            $log.debug('parsedDate: ' + parsedDate);
+            tab.lines.push({number: tab.currentLineNumber, date: parsedDate, data: data});
+
+            tab.newLines++;
+            tab.currentLineNumber++;
+
+            TailEventService.broadcast();
+
+          });
+
+          //$log.debug('parsedDate: ' + parsedDate);
+          //tab.lines.push({number: tab.currentLineNumber, data: data});
 
         });
 
@@ -114,20 +126,16 @@ angular.module('schwanzen')
 
         });
 
-        //$scope.addTab(tailFile);
-
-        tail.watch();
-
-        tab.tail = tail;
+        //tail.watch();
+        //tab.tail = tail;
 
         if (typeof callback === 'function') {
 
-          callback();
+          callback(tab, tail);
 
         }
 
       }
-
 
     };
 
@@ -147,8 +155,9 @@ angular.module('schwanzen')
         this.updateInterval = 1000;
         this.currentLineNumber = 1;
 
-        getTail(this, function() {
+        getTail(this, function(tab, tail) {
 
+          tab.tail = tail;
           $log.debug('Added tail.');
 
         });
@@ -165,8 +174,6 @@ angular.module('schwanzen')
        };
        */
 
-
-
       this.init();
 
       if (typeof callback === 'function') {
@@ -182,15 +189,21 @@ angular.module('schwanzen')
   }])
   .service('TailEventService',function($rootScope) {
 
-    this.broadcast = function() {
+    this.broadcast = function(callback) {
 
       $rootScope.$broadcast('line');
+
+      if (typeof callback === 'function') {
+
+        callback();
+
+      }
 
     };
 
     this.listen = function(callback) {
 
-      $rootScope.$on('line',callback);
+      $rootScope.$on('line', callback);
 
     };
 

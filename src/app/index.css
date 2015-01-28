@@ -214,6 +214,10 @@
   width: 40px;
 }
 
+#tabContent > table > tbody > tr > td.lineDateTD {
+  width: 200px;
+}
+
 #tabContent > table > tbody > tr > td.lineBodyTD {
   /*width: 100%;
   display:table;

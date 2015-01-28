@@ -113,7 +113,7 @@ angular.module('schwanzen')
     TailEventService.listen(function() {
 
       //$log.debug('Updating view!');
-      $scope.$applyAsync();
+      $scope.$apply();
 
     });
 
