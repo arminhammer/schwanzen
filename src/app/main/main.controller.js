@@ -19,7 +19,7 @@ angular.module('schwanzen')
     }
 
     // How many lines to keep in a tail file before removing them.
-    $scope.tailLengthMax = 1000;
+    $scope.tailLengthMax = 10;
     //Interval to wait before polling the file again
     $scope.updateInterval = 1000;
 
@@ -34,12 +34,6 @@ angular.module('schwanzen')
 
         $scope.tabs[filename].tail.on('data', function(data) {
           $log.debug("got data: ");
-
-          if ($scope.tabs[filename].lines.length > $scope.tabs[filename].tailLengthMax) {
-
-            $scope.tabs[filename].lines.shift();
-
-          }
 
           var dataLines = data.toString().match(/[^\n]+(?:\r?\n|$)/g);
 
@@ -73,6 +67,16 @@ angular.module('schwanzen')
           //$scope.tabs[filename].lineBuffer = dataLines.pop();
           //$log.debug('buffer: ' + $scope.tabs[filename].lineBuffer);
 
+          /*
+          if ($scope.tabs[filename].lines.length > $scope.tailLengthMax) {
+
+            $log.debug('Lines were: ' + $scope.tabs[filename].lines.length);
+            $scope.tabs[filename].lines.shift(dataLines.length);
+            $log.debug('Lines after: ' + $scope.tabs[filename].lines.length);
+
+          }
+          */
+
           dataLines.forEach(function(line) {
 
             $scope.tabs[filename].lines.push({number: $scope.tabs[filename].currentLineNumber, data: line});
@@ -82,7 +86,7 @@ angular.module('schwanzen')
 
           });
 
-          $scope.$apply();
+          $scope.$applyAsync();
 
         });
 
