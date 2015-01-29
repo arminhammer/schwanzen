@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('schwanzen')
-  .controller('MainCtrl', ['$scope', '$log', 'TailFactory', 'TailEventService', function ($scope, $log, TailFactory, TailEventService) {
+  .controller('MainCtrl', ['$scope', '$log', 'TabService', function ($scope, $log, TabService) {
 
     var gui;
 
@@ -24,105 +24,52 @@ angular.module('schwanzen')
     $scope.updateInterval = 1000;
 
     // Object that references all of the current tabs.
-    $scope.tabs = {};
+    $scope.tabs = TabService.tabs;
 
-    $scope.getNewLines = function(tab) {
+    $scope.addTab = function(filename) {
 
-      if(tab) {
+      TabService.add(filename, function() {
 
-        if(tab.active) {
+        $log.debug('Adding tab ' + $scope.tabs[filename]);
 
-          tab.newLines = 0;
-          return null;
+        $scope.tabs[filename].tail.on('line', function (data) {
 
-        }
-        else if(tab.newLines === 0) {
+          $log.debug(data);
 
-          return null;
+          if ($scope.tabs[filename].lines.length > $scope.tabs[filename].tailLengthMax) {
 
-        }
-        else {
+            $scope.tabs[filename].lines.shift();
 
-          return tab.newLines;
+          }
 
-        }
+          $scope.tabs[filename].lines.push({number: $scope.tabs[filename].currentLineNumber, data: data});
 
-      }
+          $scope.tabs[filename].newLines++;
+          $scope.tabs[filename].currentLineNumber++;
 
-    };
+          $scope.$apply();
 
-    $scope.addTab = function(filename, callback) {
+        });
 
-      $log.debug('Adding tab ' + filename);
+        $scope.tabs[filename].tail.on('error', function (error) {
 
-      $scope.tabs[filename] = new TailFactory(filename);
+          $log.debug('ERROR: ', error);
 
-      //$log.debug('newLines: ' + newTab.newLines);
+        });
 
-      //$scope.$watch(newTab.newLines);
-      //$scope.$watch(newTab.lines);
-
-      //$scope.$applyAsync();
-
-      if (typeof callback === 'function') {
-
-        callback();
-
-      }
-
-      //$scope.$watch($scope.tabs[filename]);
-      //$scope.$watch($scope.tabs[filename].lines);
+      });
 
     };
 
-    /*
-     $scope.addTab('All', function() {
-     $log.debug('Created All tab.');
-     });
+    $scope.closeTab = function(filename) {
 
-     $scope.addTab('Tab1', function() {
-     $log.debug('Created Tab1 tab.');
-     });
-     */
+      TabService.closeTab(filename, function() {
 
-    $scope.closeTab = function(pathName, callback) {
+        $log.debug($scope.tabs);
 
-      $log.debug($scope.tabs);
-
-      if($scope.tabs[pathName]) {
-
-        if($scope.tabs[pathName].tail) {
-
-          $scope.tabs[pathName].tail.unwatch();
-          $scope.tabs[pathName].tail.closeCurrent(function() {
-
-            $scope.tabs[pathName] = null;
-
-          });
-
-        }
-        else {
-
-          $scope.tabs[pathName] = null;
-
-        }
-
-      }
-
-      if (typeof callback === 'function') {
-
-        callback();
-
-      }
+      });
 
     };
-
-    TailEventService.listen(function() {
-
-      //$log.debug('Updating view!');
-      $scope.$apply();
-
-    });
 
     var callDialog = function(dialog, callback) {
 

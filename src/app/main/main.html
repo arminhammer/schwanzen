@@ -16,6 +16,7 @@
               <i class="mdi-file-folder"></i></span>
       </a></li>
 
+      <!--
       <tab class="tablist-animate" id="settingsTab">
 
         <tab-heading>
@@ -48,6 +49,7 @@
         </div>
 
       </tab>
+      -->
 
       <li id="searchLi">
         <form class="form-inline" id="searchForm">
@@ -77,8 +79,8 @@
         <tab-heading>
           <a href ng-click="select()">
             <span class="tabHeaderText">{{tab.filename}}</span>
-            <span class="badge newLineBadge animated bounceIn">{{ getNewLines(tab) }}</span>
-            <button class="close" type="button" ng-click="closeTab(tab.path)">×</button>
+            <span class="badge newLineBadge animated bounceIn">{{ tab.getNewLines() }}</span>
+            <button class="close" type="button" ng-click="closeTab(tab.filename)">×</button>
           </a>
         </tab-heading>
         <!--
