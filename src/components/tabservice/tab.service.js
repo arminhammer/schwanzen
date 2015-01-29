@@ -14,14 +14,15 @@ angular.module('schwanzen')
       var newTab = {
 
         filename: filename,
-        shortname : nameArr[nameArr.length-1],
+        shortName : nameArr[nameArr.length-1],
         lines : [],
         newLines : 0,
         active : true,
         tailLengthMax : 1000,
         updateInterval : 1000,
         currentLineNumber : 1,
-        tail : TailService.buildTail(filename)
+        tail : TailService.buildTail(filename),
+        lineBuffer : null
 
       };
 

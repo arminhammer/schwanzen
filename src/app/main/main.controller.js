@@ -30,11 +30,10 @@ angular.module('schwanzen')
 
       TabService.add(filename, function() {
 
-        $log.debug('Adding tab ' + $scope.tabs[filename]);
+        $log.debug('Adding tab Scope' + $scope.tabs[filename].filename);
 
-        $scope.tabs[filename].tail.on('line', function (data) {
-
-          $log.debug(data);
+        $scope.tabs[filename].tail.on('data', function(data) {
+          $log.debug("got data: ");
 
           if ($scope.tabs[filename].lines.length > $scope.tabs[filename].tailLengthMax) {
 
@@ -42,19 +41,79 @@ angular.module('schwanzen')
 
           }
 
-          $scope.tabs[filename].lines.push({number: $scope.tabs[filename].currentLineNumber, data: data});
+          var dataLines = data.toString().match(/[^\n]+(?:\r?\n|$)/g);
 
-          $scope.tabs[filename].newLines++;
-          $scope.tabs[filename].currentLineNumber++;
+          if($scope.tabs[filename].lines.length > 0) {
+
+            var lastLine = $scope.tabs[filename].lines[$scope.tabs[filename].lines.length-1].data;
+
+            $log.debug(lastLine.charAt(lastLine.length-1));
+            if(!lastLine.charAt(lastLine.length-1) == '\n') {
+
+              var buffer = dataLines.shift();
+
+              $scope.tabs[filename].lines[$scope.tabs[filename].lines.length-1].data = lastLine + buffer;
+
+              $log.debug('no, it is something else');
+
+            }
+            else {
+
+              $log.debug('Is dashN');
+
+            }
+
+            $log.debug('M' + $scope.tabs[filename].lines[$scope.tabs[filename].lines.length-1].data+ 'M');
+
+          }
+
+          //var dataLines = data.toString().split('\n');
+
+          //$log.debug(dataLines.length);
+          //$scope.tabs[filename].lineBuffer = dataLines.pop();
+          //$log.debug('buffer: ' + $scope.tabs[filename].lineBuffer);
+
+          dataLines.forEach(function(line) {
+
+            $scope.tabs[filename].lines.push({number: $scope.tabs[filename].currentLineNumber, data: line});
+
+            $scope.tabs[filename].newLines++;
+            $scope.tabs[filename].currentLineNumber++;
+
+          });
 
           $scope.$apply();
 
         });
 
-        $scope.tabs[filename].tail.on('error', function (error) {
+        $scope.tabs[filename].tail.on('eof', function() {
+          $log.debug("reached end of file");
 
-          $log.debug('ERROR: ', error);
+          //$log.debug('Writing linebuffer: ' + $scope.tabs[filename].lineBuffer);
 
+          //$scope.tabs[filename].lines.push({number: $scope.tabs[filename].currentLineNumber, data: $scope.tabs[filename].lineBuffer});
+
+          //$scope.tabs[filename].newLines++;
+          //$scope.tabs[filename].currentLineNumber++;
+
+          //$scope.tabs[filename].lineBuffer = null;
+
+        });
+
+        $scope.tabs[filename].tail.on('move', function(oldpath, newpath) {
+          $log.debug("file moved from: " + oldpath + " to " + newpath);
+        });
+
+        $scope.tabs[filename].tail.on('truncate', function(newsize, oldsize) {
+          $log.debug("file truncated from: " + oldsize + " to " + newsize);
+        });
+
+        $scope.tabs[filename].tail.on('end', function() {
+          $log.debug("ended");
+        });
+
+        $scope.tabs[filename].tail.on('error', function(err) {
+          $log.debug("error: " + err);
         });
 
       });

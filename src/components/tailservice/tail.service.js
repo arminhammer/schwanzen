@@ -8,7 +8,7 @@ angular.module('schwanzen')
 
     try {
 
-      Tail = require('always-tail');
+      Tail = require('tail-stream');
       fs = require('fs');
 
     }
@@ -43,7 +43,13 @@ angular.module('schwanzen')
         //$log.debug('this:');
         //$log.debug(this);
 
-        return new Tail(filename, '\n', { interval: 1000 });
+        return Tail.createReadStream(filename, {
+          beginAt: 0,
+          onMove: 'follow',
+          detectTruncate: true,
+          onTruncate: 'end',
+          endOnError: false
+        });
 
       }
 

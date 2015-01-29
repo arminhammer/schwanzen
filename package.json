@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "main": "src/index.html",
   "dependencies": {
-    "always-tail": "^0.1.1",
     "tail-stream": "^0.2.1"
   },
   "window": {
