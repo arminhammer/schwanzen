@@ -140,7 +140,7 @@ angular.module('schwanzen')
     };
 
 
-    var TailFactory = function(filename, callback){
+    var TailFactory = function(filename){
 
       this.init = function () {
 
@@ -176,11 +176,11 @@ angular.module('schwanzen')
 
       this.init();
 
-      if (typeof callback === 'function') {
+      //if (typeof callback === 'function') {
 
-        callback(this);
+      //  callback(this);
 
-      }
+      //}
 
     };
 

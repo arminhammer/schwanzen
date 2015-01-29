@@ -78,7 +78,7 @@
           <a href ng-click="select()">
             <span class="tabHeaderText">{{tab.filename}}</span>
             <span class="badge newLineBadge animated bounceIn">{{ getNewLines(tab) }}</span>
-            <button class="close" type="button" ng-click="closeTab(tab.filename)">×</button>
+            <button class="close" type="button" ng-click="closeTab(tab.path)">×</button>
           </a>
         </tab-heading>
         <!--

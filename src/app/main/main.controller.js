@@ -28,20 +28,24 @@ angular.module('schwanzen')
 
     $scope.getNewLines = function(tab) {
 
-      if(tab.active) {
+      if(tab) {
 
-        tab.newLines = 0;
-        return null;
+        if(tab.active) {
 
-      }
-      else if(tab.newLines === 0) {
+          tab.newLines = 0;
+          return null;
 
-        return null;
+        }
+        else if(tab.newLines === 0) {
 
-      }
-      else {
+          return null;
 
-        return tab.newLines;
+        }
+        else {
+
+          return tab.newLines;
+
+        }
 
       }
 
@@ -51,23 +55,20 @@ angular.module('schwanzen')
 
       $log.debug('Adding tab ' + filename);
 
-      $scope.tabs[filename] = new TailFactory(filename, function(newTab) {
+      $scope.tabs[filename] = new TailFactory(filename);
 
-        $log.debug('newLines: ' + newTab.newLines);
+      //$log.debug('newLines: ' + newTab.newLines);
 
-        //$scope.$watch(newTab.newLines);
-        //$scope.$watch(newTab.lines);
+      //$scope.$watch(newTab.newLines);
+      //$scope.$watch(newTab.lines);
 
-        $scope.$applyAsync();
+      //$scope.$applyAsync();
 
+      if (typeof callback === 'function') {
 
-        if (typeof callback === 'function') {
+        callback();
 
-          callback();
-
-        }
-
-      });
+      }
 
       //$scope.$watch($scope.tabs[filename]);
       //$scope.$watch($scope.tabs[filename].lines);
@@ -75,30 +76,36 @@ angular.module('schwanzen')
     };
 
     /*
-    $scope.addTab('All', function() {
-      $log.debug('Created All tab.');
-    });
+     $scope.addTab('All', function() {
+     $log.debug('Created All tab.');
+     });
 
-    $scope.addTab('Tab1', function() {
-      $log.debug('Created Tab1 tab.');
-    });
-    */
+     $scope.addTab('Tab1', function() {
+     $log.debug('Created Tab1 tab.');
+     });
+     */
 
-    $scope.closeTab = function(filename, callback) {
+    $scope.closeTab = function(pathName, callback) {
 
-      if($scope.tabs[filename].tail) {
+      $log.debug($scope.tabs);
 
-        $scope.tabs[filename].tail.unwatch();
-        $scope.tabs[filename].tail.closeCurrent(function() {
+      if($scope.tabs[pathName]) {
 
-          delete $scope.tabs[filename];
+        if($scope.tabs[pathName].tail) {
 
-        });
+          $scope.tabs[pathName].tail.unwatch();
+          $scope.tabs[pathName].tail.closeCurrent(function() {
 
-      }
-      else {
+            $scope.tabs[pathName] = null;
 
-        delete $scope.tabs[filename];
+          });
+
+        }
+        else {
+
+          $scope.tabs[pathName] = null;
+
+        }
 
       }
 
