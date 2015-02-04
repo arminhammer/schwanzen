@@ -5,7 +5,6 @@ angular.module('schwanzen')
 
     function Tab(filename, tail) {
 
-      //var nameArr = filename.split('/');
       var newLines = 0;
       var lines = [];
 
@@ -24,10 +23,8 @@ angular.module('schwanzen')
         $log.debug('There was an error loading the path var')
 
       }
-      //this.title = nameArr[nameArr.length-1];
 
       this.active = true;
-      //this.currentLineNumber = 1;
       this.tail = tail;
       this.lineBuffer = null;
 
@@ -39,7 +36,7 @@ angular.module('schwanzen')
 
       this.getNewLines = function() {
 
-        $log.debug('getting new lines');
+        //$log.debug('getting new lines');
 
         if(this.active) {
 
@@ -60,12 +57,12 @@ angular.module('schwanzen')
 
       };
 
-      function addLine(line) {
+      this.addLine = function(line) {
 
         newLines++;
         lines.push(line);
 
-      }
+      };
 
       this.addLines = function(data) {
 
@@ -128,6 +125,8 @@ angular.module('schwanzen')
 
       TailService.buildTail(filename)
         .then(function(tail) {
+
+          $log.debug('Got tail...' + tail);
 
           var newTab = new Tab(filename, tail);
 

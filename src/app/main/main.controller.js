@@ -31,6 +31,14 @@ angular.module('schwanzen')
       TabService.build(filename)
         .then(function(tab) {
 
+          tab.tail.on('line', function(line) {
+
+            $log.debug('We found a line, and it is ' + line);
+            tab.addLine({ data: line });
+            $scope.$applyAsync();
+
+          });
+
           tab.tail.on('data', function(data) {
 
             $log.debug('got new data!');
