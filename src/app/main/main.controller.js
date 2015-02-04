@@ -19,7 +19,7 @@ angular.module('schwanzen')
     }
 
     // How many lines to keep in a tail file before removing them.
-    $scope.tailLengthMax = 10;
+    $scope.tailLengthMax = 2000;
     //Interval to wait before polling the file again
     $scope.updateInterval = 1000;
 
@@ -35,7 +35,7 @@ angular.module('schwanzen')
           $log.debug('Adding tab Scope' + $scope.tabs[filename].filename);
 
           $scope.tabs[filename].tail.on('data', function(data) {
-            //$log.debug("got data: ");
+            $log.debug("got data: ");
 
             var dataLines = data.toString().match(/[^\n]+(?:\r?\n|$)/g);
 
@@ -79,14 +79,19 @@ angular.module('schwanzen')
              }
              */
 
-            dataLines.forEach(function(line) {
+            for(var i = 0; i < dataLines.length; i++) {
 
-              $scope.tabs[filename].lines.push({number: $scope.tabs[filename].currentLineNumber, data: line});
+              //if ($scope.tabs[filename].lines.length > $scope.tailLengthMax) {
+              //  $scope.tabs[filename].lines.shift();
+              //  $log.debug('Truncating file...' + $scope.tabs[filename].lines.length);
+              //}
+
+              $scope.tabs[filename].lines.push({number: $scope.tabs[filename].currentLineNumber, data: dataLines[i]});
 
               $scope.tabs[filename].newLines++;
               $scope.tabs[filename].currentLineNumber++;
 
-            });
+            }
 
             $scope.$applyAsync();
 
@@ -94,6 +99,8 @@ angular.module('schwanzen')
 
           $scope.tabs[filename].tail.on('eof', function() {
             $log.debug("reached end of file");
+
+            //$scope.$applyAsync();
 
             //$log.debug('Writing linebuffer: ' + $scope.tabs[filename].lineBuffer);
 
@@ -107,19 +114,27 @@ angular.module('schwanzen')
           });
 
           $scope.tabs[filename].tail.on('move', function(oldpath, newpath) {
+
             $log.debug("file moved from: " + oldpath + " to " + newpath);
+
           });
 
           $scope.tabs[filename].tail.on('truncate', function(newsize, oldsize) {
+
             $log.debug("file truncated from: " + oldsize + " to " + newsize);
+
           });
 
           $scope.tabs[filename].tail.on('end', function() {
+
             $log.debug("ended");
+
           });
 
           $scope.tabs[filename].tail.on('error', function(err) {
+
             $log.debug("error: " + err);
+
           });
 
         });
