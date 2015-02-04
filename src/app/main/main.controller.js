@@ -32,71 +32,16 @@ angular.module('schwanzen')
         .then(function(tab) {
 
           tab.tail.on('data', function(data) {
-            //$log.debug("got data: ");
 
-            //$log.debug(data.toString());
-            var dataLines = data.toString().match(/[^\n]+(?:\r?\n|$)/g);
-            //$log.debug(dataLines);
+            $log.debug('got new data!');
 
-            if(dataLines.length > 1 && tab.lines.length > 0) {
-            //if(tab.lines.length > 0) {
+            tab.addLines(data)
+              .then(function() {
 
-              var lastLine = tab.lines[tab.lines.length-1].data;
+                $log.debug('tada');
+                $scope.$applyAsync();
 
-              //$log.debug(lastLine.charAt(lastLine.length-1));
-              if(lastLine.charAt(lastLine.length-1) !== '\n') {
-
-                var buffer = dataLines.shift();
-
-                tab.lines[tab.lines.length-1].data = lastLine + buffer;
-
-                //$log.debug('no, it is something else');
-
-              }
-              else {
-
-                //$log.debug('Is dashN');
-
-              }
-
-              //$log.debug('M' + tab.lines[tab.lines.length-1].data+ 'M');
-
-            }
-
-            //var dataLines = data.toString().split('\n');
-
-            //$log.debug(dataLines.length);
-            //tab.lineBuffer = dataLines.pop();
-            //$log.debug('buffer: ' + tab.lineBuffer);
-
-            /*
-             if (tab.lines.length > $scope.tailLengthMax) {
-
-             $log.debug('Lines were: ' + tab.lines.length);
-             tab.lines.shift(dataLines.length);
-             $log.debug('Lines after: ' + tab.lines.length);
-
-             }
-             */
-
-            for(var ix = 0; ix < dataLines.length; ix++) {
-
-              tab.lines.push({ number: tab.currentLineNumber, data: dataLines[ix] });
-
-              tab.newLines++;
-              tab.currentLineNumber++;
-
-              //if (tab.lines.length > $scope.tailLengthMax) {
-
-                //$log.debug('Truncating file...B' + tab.lines.length);
-                //tab.lines.shift();
-                //$log.debug('Truncating file...A' + tab.lines.length);
-
-              //}
-
-            }
-
-            $scope.$applyAsync();
+              });
 
           });
 

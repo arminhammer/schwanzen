@@ -3,6 +3,105 @@
 angular.module('schwanzen')
   .service('TabService', ['$log', '$q', 'TailService', function($log, $q, TailService) {
 
+    function Tab(filename, tail) {
+
+      var nameArr = filename.split('/');
+      var newLines = 0;
+      var lines = [];
+
+      this.filename = filename;
+      this.shortName = nameArr[nameArr.length-1];
+
+      this.active = true;
+      //this.currentLineNumber = 1;
+      this.tail = tail;
+      this.lineBuffer = null;
+
+      this.getLines = function() {
+
+        return lines;
+
+      }
+
+      this.getNewLines = function() {
+
+        $log.debug('getting new lines');
+
+        if(this.active) {
+
+          newLines = 0;
+          return null;
+
+        }
+        else if(newLines === 0) {
+
+          return null;
+
+        }
+        else {
+
+          return newLines;
+
+        }
+
+      };
+
+      function addLine(line) {
+
+        newLines++;
+        lines.push(line);
+
+      }
+
+      this.addLines = function(data) {
+
+        var deferred = $q.defer();
+
+        $log.debug("got data: ");
+
+        $log.debug(data.toString());
+        var dataLines = data.toString().match(/[^\n]+(?:\r?\n|$)/g);
+        $log.debug(dataLines);
+
+        if(dataLines.length > 1 && lines.length > 0) {
+
+          var lastLine = lines[lines.length-1].data;
+
+          //$log.debug(lastLine.charAt(lastLine.length-1));
+          if(lastLine.charAt(lastLine.length-1) !== '\n') {
+
+            var buffer = dataLines.shift();
+
+            lines[lines.length-1].data = lastLine + buffer;
+
+            //$log.debug('no, it is something else');
+
+          }
+          else {
+
+            //$log.debug('Is dashN');
+
+          }
+
+          //$log.debug('M' + tab.lines[tab.lines.length-1].data+ 'M');
+
+        }
+
+        for(var ix = 0; ix < dataLines.length; ix++) {
+
+          $log.debug('line ' + dataLines[ix]);
+          addLine({  data: dataLines[ix] });
+
+        }
+
+        deferred.resolve();
+
+        return deferred.promise;
+
+      }
+
+    }
+
     this.tabs = {};
 
     this.build = function(filename) {
@@ -11,11 +110,14 @@ angular.module('schwanzen')
 
       $log.debug('Adding tab ' + filename);
 
-      var nameArr = filename.split('/');
+      //var nameArr = filename.split('/');
 
       TailService.buildTail(filename)
         .then(function(tail) {
 
+          var newTab = new Tab(filename, tail);
+
+          /*
           var newTab = {
 
             filename: filename,
@@ -51,6 +153,7 @@ angular.module('schwanzen')
             }
 
           };
+           */
 
           deferred.resolve(newTab);
 
@@ -58,7 +161,7 @@ angular.module('schwanzen')
 
           //if (typeof callback === 'function') {
 
-            //callback();
+          //callback();
 
           //}
 
