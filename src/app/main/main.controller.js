@@ -32,11 +32,11 @@ angular.module('schwanzen')
         .then(function(tab) {
 
           tab.tail.on('data', function(data) {
-            $log.debug("got data: ");
+            //$log.debug("got data: ");
 
-            $log.debug(data.toString());
+            //$log.debug(data.toString());
             var dataLines = data.toString().match(/[^\n]+(?:\r?\n|$)/g);
-            $log.debug(dataLines);
+            //$log.debug(dataLines);
 
             if(dataLines.length > 1 && tab.lines.length > 0) {
             //if(tab.lines.length > 0) {
