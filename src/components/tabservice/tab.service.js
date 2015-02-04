@@ -1,60 +1,70 @@
 'use strict';
 
 angular.module('schwanzen')
-  .service('TabService', ['$log', 'TailService', function($log, TailService) {
+  .service('TabService', ['$log', '$q', 'TailService', function($log, $q, TailService) {
 
     this.tabs = {};
 
-    this.add = function(filename, callback) {
+    this.build = function(filename, callback) {
+
+      var deferred = $q.defer();
 
       $log.debug('Adding tab ' + filename);
 
       var nameArr = filename.split('/');
 
-      var newTab = {
+      TailService.buildTail(filename)
+        .then(function(tail) {
 
-        filename: filename,
-        shortName : nameArr[nameArr.length-1],
-        lines : [],
-        newLines : 0,
-        active : true,
-        tailLengthMax : 1000,
-        updateInterval : 1000,
-        currentLineNumber : 1,
-        tail : TailService.buildTail(filename),
-        lineBuffer : null
+          var newTab = {
 
-      };
+            filename: filename,
+            shortName : nameArr[nameArr.length-1],
+            lines : [],
+            newLines : 0,
+            active : true,
+            tailLengthMax : 1000,
+            updateInterval : 1000,
+            currentLineNumber : 1,
+            tail : tail,
+            lineBuffer : null
 
-      newTab.getNewLines = function() {
+          };
 
-        if(newTab.active) {
+          newTab.getNewLines = function() {
 
-          newTab.newLines = 0;
-          return null;
+            if(newTab.active) {
 
-        }
-        else if(newTab.newLines === 0) {
+              newTab.newLines = 0;
+              return null;
 
-          return null;
+            }
+            else if(newTab.newLines === 0) {
 
-        }
-        else {
+              return null;
 
-          return newTab.newLines;
+            }
+            else {
 
-        }
+              return newTab.newLines;
 
-      };
+            }
 
-      this.tabs[filename] = newTab;
+          };
 
-      if (typeof callback === 'function') {
+          deferred.resolve(newTab);
 
-        callback();
+          //this.tabs[filename] = newTab;
 
-      }
+          //if (typeof callback === 'function') {
 
+            //callback();
+
+          //}
+
+        });
+
+      return deferred.promise;
     };
 
     this.closeTab = function(filename, callback) {

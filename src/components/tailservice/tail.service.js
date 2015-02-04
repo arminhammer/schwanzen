@@ -1,10 +1,11 @@
 'use strict';
 
 angular.module('schwanzen')
-  .service('TailService', ['$log', function($log) {
+  .service('TailService', ['$log', '$q', function($log, $q) {
 
     var fs;
     var Tail;
+    var truncateCount = 200000;
 
     try {
 
@@ -20,6 +21,8 @@ angular.module('schwanzen')
     }
 
     this.buildTail = function (filename) {
+
+      var deferred = $q.defer();
 
       if (Tail && fs) {
 
@@ -38,20 +41,46 @@ angular.module('schwanzen')
 
         }
         catch (err) {
+
           $log.debug('There was an error checking the existence of the file: ' + err);
+
         }
+
+        fs.stat(filename, function(err, stats) {
+
+          if(err) {
+            deferred.reject(err);
+          }
+
+          var size = stats.size;
+
+          $log.debug('Size of the file is ' + size);
+
+          // If the file is reasonably sized, read the whole thing.  Otherwise, truncate the beginning.
+          var begin = 0;
+
+          if(size > truncateCount) {
+
+            begin = size - truncateCount;
+            $log.debug('Truncating file, starting at ' + begin);
+
+          }
+
+          deferred.resolve(Tail.createReadStream(filename, {
+            beginAt: begin,
+            onMove: 'follow',
+            detectTruncate: true,
+            onTruncate: 'end',
+            endOnError: false
+          }));
+
+        });
         //$log.debug('this:');
         //$log.debug(this);
 
-        return Tail.createReadStream(filename, {
-          beginAt: 0,
-          onMove: 'follow',
-          detectTruncate: true,
-          onTruncate: 'end',
-          endOnError: false
-        });
-
       }
+
+      return deferred.promise;
 
     };
 

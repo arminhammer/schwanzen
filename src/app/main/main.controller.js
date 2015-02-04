@@ -28,99 +28,101 @@ angular.module('schwanzen')
 
     $scope.addTab = function(filename) {
 
-      TabService.add(filename, function() {
+      TabService.build(filename)
+        .then(function(tab) {
 
-        $log.debug('Adding tab Scope' + $scope.tabs[filename].filename);
+          $scope.tabs[filename] = tab;
+          $log.debug('Adding tab Scope' + $scope.tabs[filename].filename);
 
-        $scope.tabs[filename].tail.on('data', function(data) {
-          $log.debug("got data: ");
+          $scope.tabs[filename].tail.on('data', function(data) {
+            //$log.debug("got data: ");
 
-          var dataLines = data.toString().match(/[^\n]+(?:\r?\n|$)/g);
+            var dataLines = data.toString().match(/[^\n]+(?:\r?\n|$)/g);
 
-          if($scope.tabs[filename].lines.length > 0) {
+            if($scope.tabs[filename].lines.length > 0) {
 
-            var lastLine = $scope.tabs[filename].lines[$scope.tabs[filename].lines.length-1].data;
+              var lastLine = $scope.tabs[filename].lines[$scope.tabs[filename].lines.length-1].data;
 
-            $log.debug(lastLine.charAt(lastLine.length-1));
-            if(!lastLine.charAt(lastLine.length-1) == '\n') {
+              //$log.debug(lastLine.charAt(lastLine.length-1));
+              if(!lastLine.charAt(lastLine.length-1) == '\n') {
 
-              var buffer = dataLines.shift();
+                var buffer = dataLines.shift();
 
-              $scope.tabs[filename].lines[$scope.tabs[filename].lines.length-1].data = lastLine + buffer;
+                $scope.tabs[filename].lines[$scope.tabs[filename].lines.length-1].data = lastLine + buffer;
 
-              $log.debug('no, it is something else');
+                //$log.debug('no, it is something else');
+
+              }
+              else {
+
+                //$log.debug('Is dashN');
+
+              }
+
+              //$log.debug('M' + $scope.tabs[filename].lines[$scope.tabs[filename].lines.length-1].data+ 'M');
 
             }
-            else {
 
-              $log.debug('Is dashN');
+            //var dataLines = data.toString().split('\n');
 
-            }
+            //$log.debug(dataLines.length);
+            //$scope.tabs[filename].lineBuffer = dataLines.pop();
+            //$log.debug('buffer: ' + $scope.tabs[filename].lineBuffer);
 
-            $log.debug('M' + $scope.tabs[filename].lines[$scope.tabs[filename].lines.length-1].data+ 'M');
+            /*
+             if ($scope.tabs[filename].lines.length > $scope.tailLengthMax) {
 
-          }
+             $log.debug('Lines were: ' + $scope.tabs[filename].lines.length);
+             $scope.tabs[filename].lines.shift(dataLines.length);
+             $log.debug('Lines after: ' + $scope.tabs[filename].lines.length);
 
-          //var dataLines = data.toString().split('\n');
+             }
+             */
 
-          //$log.debug(dataLines.length);
-          //$scope.tabs[filename].lineBuffer = dataLines.pop();
-          //$log.debug('buffer: ' + $scope.tabs[filename].lineBuffer);
+            dataLines.forEach(function(line) {
 
-          /*
-          if ($scope.tabs[filename].lines.length > $scope.tailLengthMax) {
+              $scope.tabs[filename].lines.push({number: $scope.tabs[filename].currentLineNumber, data: line});
 
-            $log.debug('Lines were: ' + $scope.tabs[filename].lines.length);
-            $scope.tabs[filename].lines.shift(dataLines.length);
-            $log.debug('Lines after: ' + $scope.tabs[filename].lines.length);
+              $scope.tabs[filename].newLines++;
+              $scope.tabs[filename].currentLineNumber++;
 
-          }
-          */
+            });
 
-          dataLines.forEach(function(line) {
-
-            $scope.tabs[filename].lines.push({number: $scope.tabs[filename].currentLineNumber, data: line});
-
-            $scope.tabs[filename].newLines++;
-            $scope.tabs[filename].currentLineNumber++;
+            $scope.$applyAsync();
 
           });
 
-          $scope.$applyAsync();
+          $scope.tabs[filename].tail.on('eof', function() {
+            $log.debug("reached end of file");
+
+            //$log.debug('Writing linebuffer: ' + $scope.tabs[filename].lineBuffer);
+
+            //$scope.tabs[filename].lines.push({number: $scope.tabs[filename].currentLineNumber, data: $scope.tabs[filename].lineBuffer});
+
+            //$scope.tabs[filename].newLines++;
+            //$scope.tabs[filename].currentLineNumber++;
+
+            //$scope.tabs[filename].lineBuffer = null;
+
+          });
+
+          $scope.tabs[filename].tail.on('move', function(oldpath, newpath) {
+            $log.debug("file moved from: " + oldpath + " to " + newpath);
+          });
+
+          $scope.tabs[filename].tail.on('truncate', function(newsize, oldsize) {
+            $log.debug("file truncated from: " + oldsize + " to " + newsize);
+          });
+
+          $scope.tabs[filename].tail.on('end', function() {
+            $log.debug("ended");
+          });
+
+          $scope.tabs[filename].tail.on('error', function(err) {
+            $log.debug("error: " + err);
+          });
 
         });
-
-        $scope.tabs[filename].tail.on('eof', function() {
-          $log.debug("reached end of file");
-
-          //$log.debug('Writing linebuffer: ' + $scope.tabs[filename].lineBuffer);
-
-          //$scope.tabs[filename].lines.push({number: $scope.tabs[filename].currentLineNumber, data: $scope.tabs[filename].lineBuffer});
-
-          //$scope.tabs[filename].newLines++;
-          //$scope.tabs[filename].currentLineNumber++;
-
-          //$scope.tabs[filename].lineBuffer = null;
-
-        });
-
-        $scope.tabs[filename].tail.on('move', function(oldpath, newpath) {
-          $log.debug("file moved from: " + oldpath + " to " + newpath);
-        });
-
-        $scope.tabs[filename].tail.on('truncate', function(newsize, oldsize) {
-          $log.debug("file truncated from: " + oldsize + " to " + newsize);
-        });
-
-        $scope.tabs[filename].tail.on('end', function() {
-          $log.debug("ended");
-        });
-
-        $scope.tabs[filename].tail.on('error', function(err) {
-          $log.debug("error: " + err);
-        });
-
-      });
 
     };
 
