@@ -5,7 +5,7 @@ angular.module('schwanzen')
 
     this.tabs = {};
 
-    this.build = function(filename, callback) {
+    this.build = function(filename) {
 
       var deferred = $q.defer();
 
@@ -65,6 +65,7 @@ angular.module('schwanzen')
         });
 
       return deferred.promise;
+
     };
 
     this.closeTab = function(filename, callback) {
@@ -75,7 +76,7 @@ angular.module('schwanzen')
 
         if(this.tabs[filename].tail) {
 
-          this.tabs[filename].tail.unwatch();
+          //this.tabs[filename].tail.unwatch();
 
           delete this.tabs[filename];
 
