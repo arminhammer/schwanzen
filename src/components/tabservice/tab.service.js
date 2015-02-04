@@ -5,12 +5,26 @@ angular.module('schwanzen')
 
     function Tab(filename, tail) {
 
-      var nameArr = filename.split('/');
+      //var nameArr = filename.split('/');
       var newLines = 0;
       var lines = [];
 
       this.filename = filename;
-      this.shortName = nameArr[nameArr.length-1];
+
+      this.title = filename;
+
+      try {
+
+        var path = require('path');
+        this.title = path.basename(filename);
+
+      }
+      catch(err) {
+
+        $log.debug('There was an error loading the path var')
+
+      }
+      //this.title = nameArr[nameArr.length-1];
 
       this.active = true;
       //this.currentLineNumber = 1;
@@ -21,7 +35,7 @@ angular.module('schwanzen')
 
         return lines;
 
-      }
+      };
 
       this.getNewLines = function() {
 

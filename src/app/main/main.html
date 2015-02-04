@@ -74,11 +74,11 @@
       </li>
       -->
 
-      <tab ng-repeat="tab in tabs" heading="{{tab.filename}}" active="tab.active" disabled="tab.disabled" class="tablist-animate">
+      <tab ng-repeat="tab in tabs" active="tab.active" disabled="tab.disabled" class="tablist-animate">
 
         <tab-heading>
           <a href ng-click="select()">
-            <span class="tabHeaderText">{{tab.filename}}</span>
+            <span class="tabHeaderText">{{ tab.title }}</span>
             <span class="badge newLineBadge animated bounceIn">{{ tab.getNewLines() }}</span>
             <button class="close" type="button" ng-click="closeTab(tab.filename)">×</button>
           </a>
