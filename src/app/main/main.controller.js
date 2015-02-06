@@ -34,7 +34,7 @@ angular.module('schwanzen')
           tab.tail.on('line', function(line) {
 
             $log.debug('We found a line, and it is ' + line);
-            tab.addLine({ data: line });
+            tab.addLine(line+'<br/>');
             $scope.$applyAsync();
 
           });

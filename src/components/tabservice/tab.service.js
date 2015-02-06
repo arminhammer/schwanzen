@@ -7,6 +7,7 @@ angular.module('schwanzen')
 
       var newLines = 0;
       var lines = [];
+      this.content = '';
 
       this.filename = filename;
 
@@ -60,7 +61,8 @@ angular.module('schwanzen')
       this.addLine = function(line) {
 
         newLines++;
-        lines.push(line);
+        //lines.push(line);
+        this.content += line;
 
       };
 
@@ -126,7 +128,9 @@ angular.module('schwanzen')
       TailService.buildTail(filename)
         .then(function(tail) {
 
-          $log.debug('Got tail...' + tail);
+          $log.debug('Got tail...');
+          $log.debug(tail);
+          //tail.go();
 
           var newTab = new Tab(filename, tail);
 
