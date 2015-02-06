@@ -245,6 +245,10 @@
   /*float: right;*/
 }
 
+#comboTab > a > tab-heading > a > span > i {
+  font-size: 18px;
+}
+
 #settingContents {
 
   /*margin-top: 10%;*/

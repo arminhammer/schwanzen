@@ -3,7 +3,62 @@
 angular.module('schwanzen')
   .service('TabService', ['$log', '$q', 'TailService', function($log, $q, TailService) {
 
-    function Tab(filename, tail) {
+    function Tab() {
+
+      this.newLines = 0;
+
+      this.active = false;
+      this.disabled = true;
+
+      this.addLine = function(line) {
+
+        this.newLines++;
+        this.content += line;
+
+      };
+
+      this.getNewLines = function() {
+
+        //$log.debug('getting new lines');
+
+        if(this.active) {
+
+          this.newLines = 0;
+          return null;
+
+        }
+        else if(this.newLines === 0) {
+
+          return null;
+
+        }
+        else {
+
+          return this.newLines;
+
+        }
+
+      };
+
+    }
+
+    function SettingsTab() {
+
+
+
+    }
+    SettingsTab.prototype = new Tab();
+
+    function ComboTab() {
+
+      this.content = "";
+
+
+
+    }
+    ComboTab.prototype = new Tab();
+
+    function FileTab(filename, tail) {
 
       var newLines = 0;
       var lines = [];
@@ -26,43 +81,13 @@ angular.module('schwanzen')
       }
 
       this.active = true;
+      this.disabled = false;
       this.tail = tail;
       this.lineBuffer = null;
 
       this.getLines = function() {
 
         return lines;
-
-      };
-
-      this.getNewLines = function() {
-
-        //$log.debug('getting new lines');
-
-        if(this.active) {
-
-          newLines = 0;
-          return null;
-
-        }
-        else if(newLines === 0) {
-
-          return null;
-
-        }
-        else {
-
-          return newLines;
-
-        }
-
-      };
-
-      this.addLine = function(line) {
-
-        newLines++;
-        //lines.push(line);
-        this.content += line;
 
       };
 
@@ -114,8 +139,17 @@ angular.module('schwanzen')
       }
 
     }
+    FileTab.prototype = new Tab();
 
+    this.comboTab = new ComboTab();
     this.tabs = {};
+
+    // Count the number of file tabs open
+    this.count = function() {
+
+      return Object.keys(this.tabs).length;
+
+    };
 
     this.build = function(filename) {
 
@@ -132,7 +166,7 @@ angular.module('schwanzen')
           $log.debug(tail);
           //tail.go();
 
-          var newTab = new Tab(filename, tail);
+          var newTab = new FileTab(filename, tail);
 
           /*
           var newTab = {

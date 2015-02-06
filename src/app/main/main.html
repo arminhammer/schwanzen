@@ -60,19 +60,28 @@
           </div>
         </form>
       </li>
-      <!--
-      <li class="dropdown" dropdown on-toggle="toggled(open)">
-        <a href class="dropdown-toggle" dropdown-toggle>
-          File
-          <b class="caret"></b>
-        </a>
-        <ul class="dropdown-menu">
-          <li><a ng-href="#" ng-click="chooseFile()" data-toggle="tab">Open File</a></li>
-          <li class="divider"></li>
-          <li><a ng-href="#" ng-click="closeApp()" data-toggle="tab">Quit</a></li>
-        </ul>
-      </li>
-      -->
+
+      <tab ng-if="!comboTab.disabled" id="comboTab" class="tablist-animate" active="comboTab.active" disabled="comboTab.disabled">
+
+        <tab-heading>
+          <a href ng-click="select()">
+            <span class="tabHeaderText">
+              <i class="mdi-action-settings-input-component"></i></span>
+            <span class="badge newLineBadge animated bounceIn">{{ comboTab.getNewLines() }}</span>
+          </a>
+        </tab-heading>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+          <div class="well" id="tabContent" ng-bind-html="comboTab.content">
+
+          </div>
+
+        </div>
+
+
+      </tab>
+
 
       <tab ng-repeat="tab in tabs" active="tab.active" disabled="tab.disabled" class="tablist-animate">
 
