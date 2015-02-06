@@ -91,53 +91,6 @@ angular.module('schwanzen')
 
       };
 
-      this.addLines = function(data) {
-
-        var deferred = $q.defer();
-
-        $log.debug("got data: ");
-
-        $log.debug(data.toString());
-        var dataLines = data.toString().match(/[^\n]+(?:\r?\n|$)/g);
-        $log.debug(dataLines);
-
-        if(dataLines.length > 1 && lines.length > 0) {
-
-          var lastLine = lines[lines.length-1].data;
-
-          //$log.debug(lastLine.charAt(lastLine.length-1));
-          if(lastLine.charAt(lastLine.length-1) !== '\n') {
-
-            var buffer = dataLines.shift();
-
-            lines[lines.length-1].data = lastLine + buffer;
-
-            //$log.debug('no, it is something else');
-
-          }
-          else {
-
-            //$log.debug('Is dashN');
-
-          }
-
-          //$log.debug('M' + tab.lines[tab.lines.length-1].data+ 'M');
-
-        }
-
-        for(var ix = 0; ix < dataLines.length; ix++) {
-
-          $log.debug('line ' + dataLines[ix]);
-          addLine({  data: dataLines[ix] });
-
-        }
-
-        deferred.resolve();
-
-        return deferred.promise;
-
-      }
-
     }
     FileTab.prototype = new Tab();
 
@@ -168,53 +121,7 @@ angular.module('schwanzen')
 
           var newTab = new FileTab(filename, tail);
 
-          /*
-          var newTab = {
-
-            filename: filename,
-            shortName : nameArr[nameArr.length-1],
-            lines : [],
-            newLines : 0,
-            active : true,
-            tailLengthMax : 1000,
-            updateInterval : 1000,
-            currentLineNumber : 1,
-            tail : tail,
-            lineBuffer : null
-
-          };
-
-          newTab.getNewLines = function() {
-
-            if(newTab.active) {
-
-              newTab.newLines = 0;
-              return null;
-
-            }
-            else if(newTab.newLines === 0) {
-
-              return null;
-
-            }
-            else {
-
-              return newTab.newLines;
-
-            }
-
-          };
-           */
-
           deferred.resolve(newTab);
-
-          //this.tabs[filename] = newTab;
-
-          //if (typeof callback === 'function') {
-
-          //callback();
-
-          //}
 
         });
 
@@ -230,12 +137,7 @@ angular.module('schwanzen')
 
         if(this.tabs[filename].tail) {
 
-          //this.tabs[filename].tail.unwatch();
-
           delete this.tabs[filename];
-
-          //this.tabs[filename].tail.closeCurrent(function() {
-          //});
 
         }
         else {

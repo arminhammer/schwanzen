@@ -1,11 +1,5 @@
 <div class="container-fluid">
 
-  <!--
-  <div ng-include="'components/navbar/navbar.html'"></div>
-  -->
-
-  <!--<input style="display:none;" id="fileDialog" type="file" multiple />-->
-
   <div navitab>
   <!--<div scrolling-tabs-wrapper>-->
 
@@ -79,9 +73,7 @@
 
         </div>
 
-
       </tab>
-
 
       <tab ng-repeat="tab in tabs" active="tab.active" disabled="tab.disabled" class="tablist-animate">
 
@@ -92,25 +84,10 @@
             <button class="close" type="button" ng-click="closeTab(tab.filename)">×</button>
           </a>
         </tab-heading>
-        <!--
-        <a ng-click="scrollToBottom('tabFooter')">Go to bottom</a>
-        -->
 
-        <!--        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>-->
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
           <div class="well" id="tabContent" ng-bind-html="tab.content">
-
-            <!--
-            <table class="table table-hover ">
-              <tbody>
-              <tr ng-repeat="line in tab.getLines() | filter:searchQuery track by $index" class="line-animate">
-                <td class="lineNumberTD"><i>{{ $index }}</i></td>
-                <td class="lineBodyTD">{{ line.data }}</td>
-              </tr>
-              </tbody>
-            </table>
-            -->
 
           </div>
 
@@ -119,52 +96,10 @@
         <div><a id="tabFooter">Footer</a></div>
 
       </tab>
-      <!--
-      <li class="dropdown" dropdown on-toggle="toggled(open)">
-        <a href class="dropdown-toggle" dropdown-toggle>
-          More
-          <b class="caret"></b>
-        </a>
-        <ul class="dropdown-menu">
-          <li ng-repeat="tab in tabs"><a ng-href="#" data-toggle="tab">{{ tab.filename }}</a></li>
-        </ul>
-      </li>
-      -->
 
     </tabset>
 
   </div>
-
-  <!--
-  <div class="jumbotron text-center">
-    <h1>'Allo, 'Allo!</h1>
-    <p class="lead">
-      <img src="assets/images/yeoman.png" alt="I'm Yeoman"><br>
-      Always a pleasure scaffolding your apps.
-    </p>
-    <p><a class="btn btn-lg btn-success" ng-href="#">Splendid!</a></p>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-6 col-md-4" ng-repeat="awesomeThing in awesomeThings | orderBy:'rank'">
-      <div class="thumbnail">
-        <img class="pull-right" ng-src="assets/images/{{awesomeThing.logo}}" alt="{{awesomeThing.title}}">
-        <div class="caption">
-          <h3>{{awesomeThing.title}}</h3>
-          <p>{{awesomeThing.description}}</p>
-          <p><a ng-href="{{awesomeThing.url}}">{{awesomeThing.url}}</a></p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <hr>
-
-  <div class="footer">
-    <p>With ♥ from <a href="https://twitter.com/Swiip">@Swiip</a></p>
-  </div>
-  -->
-
 
 </div>
 

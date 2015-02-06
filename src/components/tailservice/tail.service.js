@@ -5,7 +5,6 @@ angular.module('schwanzen')
 
     var fs;
     var Tail;
-    var truncateCount = 200000;
 
     try {
 
@@ -57,43 +56,9 @@ angular.module('schwanzen')
 
           $log.debug('Size of the file is ' + size);
 
-          // If the file is reasonably sized, read the whole thing.  Otherwise, truncate the beginning.
-          //var begin = 0;
-
-          //if(size > truncateCount) {
-
-            //begin = size - truncateCount;
-            //$log.debug('Truncating file, starting at ' + begin);
-
-          //}
-
           deferred.resolve(Tail.startTailing(filename));
 
-          //deferred.resolve(Tail.startTailing({
-
-            //fd: filename,
-            //ms: 100,
-            //mode: 'line',
-            //encoding: 'utf8',
-            //onErr: function(error){
-            //  $log.debug('Error tailing file! ' + error);
-           // }
-
-          //}));
-
-          /*
-          deferred.resolve(Tail.createReadStream(filename, {
-            beginAt: 'end',
-            onMove: 'follow',
-            detectTruncate: true,
-            onTruncate: 'end',
-            endOnError: false
-          }));
-          */
-
         });
-        //$log.debug('this:');
-        //$log.debug(this);
 
       }
 

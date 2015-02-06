@@ -28,7 +28,6 @@ angular.module('schwanzen')
 
     //Get the object referencing the Settings Tab
     $scope.comboTab = TabService.comboTab;
-    //$log.debug($scope.comboTab);
 
     $scope.addTab = function(filename) {
 
@@ -43,54 +42,6 @@ angular.module('schwanzen')
             $scope.comboTab.addLine(line+'<br/>');
 
             $scope.$applyAsync();
-
-          });
-
-          tab.tail.on('data', function(data) {
-
-            $log.debug('got new data!');
-
-            tab.addLines(data)
-              .then(function() {
-
-                $log.debug('tada');
-                $scope.$applyAsync();
-
-              });
-
-          });
-
-          tab.tail.on('eof', function() {
-            $log.debug("reached end of file");
-
-            //$scope.$applyAsync();
-
-            //$log.debug('Writing linebuffer: ' + tab.lineBuffer);
-
-            //tab.lines.push({number: tab.currentLineNumber, data: tab.lineBuffer});
-
-            //tab.newLines++;
-            //tab.currentLineNumber++;
-
-            //tab.lineBuffer = null;
-
-          });
-
-          tab.tail.on('move', function(oldpath, newpath) {
-
-            $log.debug("file moved from: " + oldpath + " to " + newpath);
-
-          });
-
-          tab.tail.on('truncate', function(newsize, oldsize) {
-
-            $log.debug("file truncated from: " + oldsize + " to " + newsize);
-
-          });
-
-          tab.tail.on('end', function() {
-
-            $log.debug("ended");
 
           });
 
