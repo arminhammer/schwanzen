@@ -61,7 +61,7 @@ angular.module('schwanzen')
 
     function ComboTab() {
 
-      this.content = "";
+      this.content = '';
 
 
 
@@ -70,7 +70,6 @@ angular.module('schwanzen')
 
     function FileTab(filename, tail) {
 
-      var newLines = 0;
       var lines = [];
       this.content = '';
 
@@ -86,14 +85,13 @@ angular.module('schwanzen')
       }
       catch(err) {
 
-        $log.debug('There was an error loading the path var')
+        $log.debug('There was an error loading the path var');
 
       }
 
       this.active = true;
       this.disabled = false;
       this.tail = tail;
-      this.lineBuffer = null;
 
       this.getLines = function() {
 

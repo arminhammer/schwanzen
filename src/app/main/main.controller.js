@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('schwanzen')
-  .controller('MainCtrl', ['$scope', '$log', 'TabService', 'NodeService', function ($scope, $log, TabService, NodeService) {
+  .controller('MainCtrl', ['$scope', '$log', 'TabService', function ($scope, $log, TabService) {
 
     // How many lines to keep in a tail file before removing them.
     $scope.tailLengthMax = 2000;
@@ -32,7 +32,7 @@ angular.module('schwanzen')
 
           tab.tail.on('error', function(err) {
 
-            $log.debug("error: " + err);
+            $log.debug('error: ' + err);
 
           });
 

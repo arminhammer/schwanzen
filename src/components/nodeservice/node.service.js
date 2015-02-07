@@ -3,14 +3,14 @@
 angular.module('schwanzen')
   .service('NodeService', ['$log', function($log) {
 
-    this.$fs;
-    this.$Tail;
+    this.$fs = null;
+    this.$Tail = null;
 
     try {
 
       this.$Tail = require('file-tail');
       this.$fs = require('fs');
-      $log.debug('Loaded deps...')
+      $log.debug('Loaded deps...');
 
     }
     catch (err) {
