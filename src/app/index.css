@@ -19,7 +19,7 @@
 }
 
 .nav-tabs {
-  background: #005B95;
+  background: #303F9F;
 
   /*
   white-space: nowrap;
@@ -98,7 +98,7 @@
 }
 
 .newLineBadge {
-  background-color: #009587;
+  background-color: #B71C1C;
 }
 
 .tabHeaderText {
@@ -263,6 +263,7 @@
 #tabContent {
   margin-bottom: 100px;
   font-family: sourceCodePro;
+  font-size: 1em;
   /*z-index: -10;*/
 }
 
@@ -275,3 +276,9 @@
   width: 100%;
 }
 */
+
+.ui-match {
+  background: #FFFF00;
+  padding: 0;
+  margin: 0;
+}

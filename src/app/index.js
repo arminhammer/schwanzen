@@ -7,7 +7,8 @@ angular.module('schwanzen', [
   'ngSanitize',
   'ngResource',
   'ui.router',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'ui.utils'
   ])
   .config(function ($stateProvider, $urlRouterProvider) {
 
