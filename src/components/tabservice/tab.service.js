@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('schwanzen')
-  .service('TabService', ['$log', '$q', 'TailService', function($log, $q, TailService) {
+  .service('TabService', ['$log', '$q', 'TailService', 'ConfigService', function($log, $q, TailService, ConfigService) {
 
     function Tab() {
 
@@ -15,7 +15,7 @@ angular.module('schwanzen')
         this.newLines++;
         this.content += line;
 
-        if(this.content.length > 500000) {
+        if(this.content.length > ConfigService.maxLength) {
           $log.debug('Slicing...');
           var lineIndex = this.content.indexOf('<br/>');
           var slice = this.content.slice(lineIndex+5);
