@@ -1,22 +1,7 @@
 'use strict';
 
 angular.module('schwanzen')
-  .controller('MainCtrl', ['$scope', '$log', 'TabService', function ($scope, $log, TabService) {
-
-    var gui;
-
-    // Load node dependencies.  In a try-catch block so that it doesn't break when testing in the browser.
-    try {
-
-      gui = require('nw.gui');
-
-    }
-    catch(err) {
-
-      $log.debug('Unable to load node dependencies, disabling...');
-      $log.debug(err);
-
-    }
+  .controller('MainCtrl', ['$scope', '$log', 'TabService', 'NodeService', function ($scope, $log, TabService, NodeService) {
 
     // How many lines to keep in a tail file before removing them.
     $scope.tailLengthMax = 2000;

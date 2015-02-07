@@ -1,34 +1,17 @@
 'use strict';
 
 angular.module('schwanzen')
-  .service('TailService', ['$log', '$q', function($log, $q) {
-
-    var fs;
-    var Tail;
-
-    try {
-
-      Tail = require('file-tail');
-      fs = require('fs');
-      $log.debug('Loaded deps...')
-
-    }
-    catch (err) {
-
-      $log.debug('Unable to load node dependencies, disabling...');
-      $log.debug(err);
-
-    }
+  .service('TailService', ['$log', '$q', 'NodeService', function($log, $q, NodeService) {
 
     this.buildTail = function (filename) {
 
       var deferred = $q.defer();
 
-      if (Tail && fs) {
+      if (NodeService.$Tail && NodeService.$fs) {
 
         try {
 
-          fs.access(filename, fs.R_OK, function (err) {
+          NodeService.$fs.access(filename, NodeService.$fs.R_OK, function (err) {
 
             if (err) {
 
@@ -46,7 +29,7 @@ angular.module('schwanzen')
 
         }
 
-        fs.stat(filename, function(err, stats) {
+        NodeService.$fs.stat(filename, function(err, stats) {
 
           if(err) {
             deferred.reject(err);
@@ -56,7 +39,7 @@ angular.module('schwanzen')
 
           $log.debug('Size of the file is ' + size);
 
-          deferred.resolve(Tail.startTailing(filename));
+          deferred.resolve(NodeService.$Tail.startTailing(filename));
 
         });
 

@@ -26,8 +26,8 @@ gulp.task('package.json', function() {
 });
 
 gulp.task('move-node-modules', function() {
-  var stream = gulp.src('./node_modules/tail-stream/**/*')
-    .pipe(gulp.dest('./dist/node_modules/tail-stream'));
+  var stream = gulp.src('./node_modules/file-tail/**/*')
+    .pipe(gulp.dest('./dist/node_modules/file-tail'));
   return stream;
 });
 
