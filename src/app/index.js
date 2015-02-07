@@ -9,16 +9,22 @@ angular.module('schwanzen', [
   'ui.router',
   'ui.bootstrap',
   'ui.utils'
-  ])
-  .config(function ($stateProvider, $urlRouterProvider) {
+])
+  .config([
+    '$stateProvider',
+    '$urlRouterProvider',
+    '$logProvider',
+    function ($stateProvider, $urlRouterProvider, $logProvider) {
 
-    $stateProvider
-      .state('home', {
-        url: '/',
-        templateUrl: 'app/main/main.html',
-        controller: 'MainCtrl'
-      });
+      $stateProvider
+        .state('home', {
+          url: '/',
+          templateUrl: 'app/main/main.html',
+          controller: 'MainCtrl'
+        });
 
-    $urlRouterProvider.otherwise('/');
+      $urlRouterProvider.otherwise('/');
 
-  });
+      $logProvider.debugEnabled(false);
+
+    }]);

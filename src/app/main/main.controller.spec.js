@@ -10,13 +10,16 @@ describe('controllers', function(){
   }));
 
   it('should define more than 5 awesome things', inject(function($controller) {
-    expect(scope.awesomeThings).toBeUndefined();
+    //expect(scope.awesomeThings).toBeUndefined();
 
     $controller('MainCtrl', {
       $scope: scope
   	});
 
-    expect(angular.isArray(scope.awesomeThings)).toBeTruthy();
-    expect(scope.awesomeThings.length > 5).toBeTruthy();
+    expect(scope.tailLengthMax).toEqual(2000);
+    //expect(angular.isArray(scope.awesomeThings)).toBeTruthy();
+    //expect(scope.awesomeThings.length > 5).toBeTruthy();
+
   }));
+
 });
