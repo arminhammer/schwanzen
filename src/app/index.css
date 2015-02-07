@@ -3,38 +3,23 @@
   src: url(../assets/fonts/SourceCodePro-Regular.otf.woff);
 }
 
-.browsehappy {
-  margin: 0.2em 0;
-  background: #ccc;
-  color: #000;
-  padding: 0.2em 0;
+#comboTab > a > tab-heading > a > span > i {
+  font-size: 18px;
 }
 
-.thumbnail {
-  height: 200px;
-}
-
-.thumbnail img.pull-right {
-  width: 50px;
+.container-fluid {
+  padding-left: 0px;
+  padding-right: 0px
 }
 
 .nav-tabs {
   background: #303F9F;
-
-  /*
-  white-space: nowrap;
-  overflow-x: auto;
-  overflow-y: hidden;
-  min-height: 42px;
-  */
-
   position: absolute;
   top: 0px;
-  /*bottom: 0;*/
   right: 0;
   left: 0;
   overflow:auto;
-  height: 42px;
+  height: 44px;
 }
 
 .nav-tabs > li .close {
@@ -42,9 +27,73 @@
   font-size: 18px;
 }
 
-.container-fluid {
-  padding-left: 0px;
-  padding-right: 0px
+.newLineBadge {
+  background-color: #B71C1C;
+}
+
+#searchForm {
+  margin-top: 5px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#searchInput {
+  color: #FFF;
+}
+
+#tabBar > ul {
+  right: 0;
+  left: 0;
+  top: 0;
+  border-width: 0 0 1px;
+
+}
+
+#tabBar > ul > li > a > tab-heading > a, a:hover, a:focus {
+  text-decoration: none;
+  color: #FFF;
+}
+
+#tabBar > ul > li.active > a > tab-heading > a, a:hover, a:focus {
+  font-weight: bold;
+}
+
+.tab-content {
+  margin-top: 10px;
+}
+
+#tabContent {
+  margin-bottom: 100px;
+  font-family: sourceCodePro;
+  font-size: 1em;
+}
+
+#tabContent > table > tbody > tr > td {
+  padding-bottom: 4px;
+  padding-top: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-width: 0px;
+}
+
+.tabHeaderText {
+  padding-right: 3px;
+}
+
+.tablist-animate.ng-enter, .tablist-animate.ng-move{
+  -webkit-animation: zoomIn 500ms;
+  -moz-animation: zoomIn 500ms;
+  -o-animation: zoomIn 500ms;
+  animation: zoomIn 500ms;
+}
+
+.tablist-animate.ng-leave{
+  -webkit-animation: zoomOut 500ms;
+  -moz-animation: zoomOut 500ms;
+  -o-animation: zoomOut 500ms;
+  animation: zoomOut 500ms;
 }
 
 .tab-pane{
@@ -61,85 +110,6 @@
   padding-right: 4px;
 }
 
-.lineNumberTD {
-  margin-right: 1%;
-  font-weight: bold;
-}
-
-#tabBar > ul {
-  /*position: fixed;*/
-  right: 0;
-  left: 0;
-  top: 0;
-  border-width: 0 0 1px;
-
-}
-
-#tabFooter {
-
-  display: block;
-  position: relative;
-  bottom: 0px;
-  visibility: hidden;
-
-}
-
-.tab-content {
-  margin-top: 10px;
-}
-
-#tabBar > ul > li > a > tab-heading > a, a:hover, a:focus {
-  text-decoration: none;
-  color: #FFF;
-}
-
-#tabBar > ul > li.active > a > tab-heading > a, a:hover, a:focus {
-  font-weight: bold;
-}
-
-.newLineBadge {
-  background-color: #B71C1C;
-}
-
-.tabHeaderText {
-  padding-right: 3px;
-}
-
-/* Tab transition animation
-
-.tab-animate-enter,
-.tab-animate-leave
-{
-  -webkit-transition: 300ms cubic-bezier(0.000, 0.000, 0.580, 1.000) all;
-  -moz-transition: 300ms cubic-bezier(0.000, 0.000, 0.580, 1.000) all;
-  -ms-transition: 300ms cubic-bezier(0.000, 0.000, 0.580, 1.000) all;
-  -o-transition: 300ms cubic-bezier(0.000, 0.000, 0.580, 1.000) all;
-  transition: 300ms cubic-bezier(0.000, 0.000, 0.580, 1.000) all;
-}
-
-.tab-animate-enter {
-  top: 100%;
-}
-.tab-animate-enter.animate-enter-active {
-  top: 0;
-}
-
-.tab-animate-leave {
-  top: 0;
-}
-.tab-animate-leave.animate-leave-active{
-  top: -100%;
-}
-*/
-
-/* Styles go here */
-/* set reference point */
-.tabset-animation > .tab-content {
-  /*position: relative;*/
-}
-
-
-/* set animate effect */
 .tabset-animation > .tab-content > .tab-pane{
   -webkit-transition: 100ms cubic-bezier(0.000, 0.000, 0.580, 1.000) all;
   -moz-transition: 100ms cubic-bezier(0.000, 0.000, 0.580, 1.000) all;
@@ -148,134 +118,19 @@
   transition: 100ms cubic-bezier(0.000, 0.000, 0.580, 1.000) all;
 }
 
-/* overwrite display: none and remove from document flow */
 .tabset-animation > .tab-content > .tab-pane.active-remove {
-
-  /*position: absolute;
-
-  width: 100%;
-  display: block;
-  */
   top: 90%;
 }
 
-/* opacity=0 when removing "active" class */
 .tabset-animation > .tab-content > .tab-pane.active-remove-active {
-
   opacity: 0;
   top:60px;
-
 }
 
-/* opacity=0 when adding "active" class */
 .tabset-animation > .tab-content > .tab-pane.active-add {
-
   opacity: 0;
   top: 60px;
-
 }
-
-.line-animate.ng-enter, .line-animate.ng-move{
-  -webkit-animation: fadeIn 500ms;
-  -moz-animation: fadeIn 500ms;
-  -o-animation: fadeIn 500ms;
-  animation: fadeIn 500ms;
-}
-
-/*
-.line-animate.ng-leave{
-  -webkit-animation: fadeOut 1s;
-  -moz-animation: fadeOut 1s;
-  -o-animation: fadeOut 1s;
-  animation: fadeOut 1s;
-}
-*/
-
-.tablist-animate.ng-enter, .tablist-animate.ng-move{
-  -webkit-animation: zoomIn 500ms;
-  -moz-animation: zoomIn 500ms;
-  -o-animation: zoomIn 500ms;
-  animation: zoomIn 500ms;
-}
-
-.tablist-animate.ng-leave{
-  -webkit-animation: zoomOut 500ms;
-  -moz-animation: zoomOut 500ms;
-  -o-animation: zoomOut 500ms;
-  animation: zoomOut 500ms;
-}
-
-#tabContent > table > tbody > tr > td {
-/*#tabBar > div > div.tab-pane > table > tbody > tr > td { */
-  padding-bottom: 4px;
-  padding-top: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-width: 0px;
-}
-
-
-#tabContent > table > tbody > tr > td.lineNumberTD {
-  width: 40px;
-}
-
-#tabContent > table > tbody > tr > td.lineDateTD {
-  width: 200px;
-}
-
-#tabContent > table > tbody > tr > td.lineBodyTD {
-  /*width: 100%;
-  display:table;
-  white-space: pre-wrap;
-  word-wrap: break-word;*/
-}
-
-#searchTab {
-  /*float:right;*/
-}
-
-#searchForm {
-  margin-top: 5px;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-#searchInput {
-  color: #FFF;
-}
-
-#settingsTab {
-  /*float: right;*/
-}
-
-#comboTab > a > tab-heading > a > span > i {
-  font-size: 18px;
-}
-
-#settingContents {
-
-  /*margin-top: 10%;*/
-
-}
-
-#tabContent {
-  margin-bottom: 100px;
-  font-family: sourceCodePro;
-  font-size: 1em;
-  /*z-index: -10;*/
-}
-
-.dropdown {
-  /*  z-index: 10;*/
-}
-
-/*
-.scrtabs-tabs-movable-container {
-  width: 100%;
-}
-*/
 
 .ui-match {
   background: #FFFF00;
