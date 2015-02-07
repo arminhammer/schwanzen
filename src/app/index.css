@@ -1,3 +1,8 @@
+@font-face {
+  font-family: sourceCodePro;
+  src: url(../assets/fonts/SourceCodePro-Regular.otf.woff);
+}
+
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
@@ -257,6 +262,7 @@
 
 #tabContent {
   margin-bottom: 100px;
+  font-family: sourceCodePro;
   /*z-index: -10;*/
 }
 
