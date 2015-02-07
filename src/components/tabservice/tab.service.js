@@ -15,6 +15,16 @@ angular.module('schwanzen')
         this.newLines++;
         this.content += line;
 
+        if(this.content.length > 500000) {
+          $log.debug('Slicing...');
+          var lineIndex = this.content.indexOf('<br/>');
+          var slice = this.content.slice(lineIndex+5);
+          $log.debug(slice);
+          this.content = slice;
+        }
+        $log.debug(this.content.length);
+        $log.debug(this.content.indexOf('<br/>'));
+
       };
 
       this.getNewLines = function() {

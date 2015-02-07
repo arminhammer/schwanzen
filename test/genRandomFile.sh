@@ -17,5 +17,5 @@ while true
 do
   DATE="$(date) $(cat /dev/urandom | tr -dc 'a-zA-Z ' | fold -w 128 | head -n 1)"
   echo $DATE | tee -a $SFILENAME
-  sleep 1
+  sleep 5
 done
