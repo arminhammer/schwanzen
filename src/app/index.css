@@ -1,6 +1,6 @@
 @font-face {
   font-family: sourceCodePro;
-  src: url(../assets/fonts/SourceCodePro-Regular.otf.woff);
+  src: url(../fonts/SourceCodePro-Regular.otf.woff);
 }
 
 #comboTab > a > tab-heading > a > span > i {

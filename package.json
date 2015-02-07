@@ -30,7 +30,7 @@
     },
     "win64": {
       "window": {
-        "toolbar": true
+        "toolbar": false
       },
       "main": "index.html"
     },
@@ -66,7 +66,7 @@
     },
     "linux64": {
       "window": {
-        "toolbar": true
+        "toolbar": false
       },
       "main": "index.html"
     }

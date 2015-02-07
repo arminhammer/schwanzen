@@ -20,19 +20,21 @@ var nw = new NwBuilder({
 nw.on('log',  console.log);
 
 gulp.task('package.json', function() {
-  var stream = gulp.src('./package.json')
+  return gulp.src('./package.json')
     .pipe(gulp.dest('./dist'));
-  return stream;
+});
+
+gulp.task('fonts:custom', function() {
+  return gulp.src('./src/fonts/**/*')
+    .pipe(gulp.dest('./dist/fonts'));
 });
 
 gulp.task('move-node-modules', function() {
-  var stream = gulp.src('./node_modules/file-tail/**/*')
+  return gulp.src('./node_modules/file-tail/**/*')
     .pipe(gulp.dest('./dist/node_modules/file-tail'));
-  return stream;
 });
 
-
-gulp.task('package', ['package.json', 'move-node-modules'], function () {
+gulp.task('package', ['package.json', 'move-node-modules', 'fonts:custom'], function () {
 
   // Build returns a promise
   nw.build().then(function () {
@@ -47,18 +49,3 @@ gulp.task('package', ['package.json', 'move-node-modules'], function () {
 gulp.task('nwrun', shell.task([
 'node node_modules/node-webkit-builder/bin/nwbuild --run ./'
 ]));
-
-// Compile project
-//gulp.task('build-osx', shell.task([
-//<% if(isWin) { %> 'node node_modules/node-webkit-builder/bin/nwbuild -v 0.10.5 -p osx ./' <% } %><% if(!isWin) { %> 'node node_modules/node-webkit-builder/bin/nwbuild -v 0.10.5 -p osx ./' <% } %>
-//]));
-
-// Compile project
-//gulp.task('build-win', shell.task([
-//<% if(isWin) { %> 'node node_modules/node-webkit-builder/bin/nwbuild -v 0.10.5 -p win ./' <% } %><% if(!isWin) { %> 'node node_modules/node-webkit-builder/bin/nwbuild -v 0.10.5 -p win ./' <% } %>
-//]));
-
-// Compile project
-//gulp.task('build-linux', shell.task([
-//<% if(isWin) { %> 'node node_modules/node-webkit-builder/bin/nwbuild -v 0.10.5 -p linux32,linux64 ./' <% } %><% if(!isWin) { %> 'node node_modules/node-webkit-builder/bin/nwbuild -v 0.10.5 -p linux32,linux64 ./' <% } %>
-//]));
