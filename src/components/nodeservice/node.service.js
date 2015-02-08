@@ -9,7 +9,6 @@ angular.module('schwanzen')
     try {
 
       this.$Tail = require('file-tail');
-      this.$fs = require('fs');
       $log.debug('Loaded deps...');
 
     }

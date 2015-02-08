@@ -16,12 +16,6 @@ describe('NodeService', function(){
 
   describe('when started', function() {
 
-    it('$fs should be not be initialized', function() {
-
-      expect(NodeService.$fs).toEqual(null);
-
-    });
-
     it('$Tail should be not be initialized', function() {
 
       expect(NodeService.$Tail).toEqual(null);
