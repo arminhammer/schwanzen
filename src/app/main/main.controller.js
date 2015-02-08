@@ -4,9 +4,9 @@ angular.module('schwanzen')
   .controller('MainCtrl', ['$scope', '$log', 'TabService', function ($scope, $log, TabService) {
 
     // How many lines to keep in a tail file before removing them.
-    $scope.tailLengthMax = 2000;
+    //$scope.tailLengthMax = 2000;
     //Interval to wait before polling the file again
-    $scope.updateInterval = 1000;
+    //$scope.updateInterval = 1000;
 
     // Object that references all of the current tabs.
     $scope.tabs = TabService.tabs;
@@ -61,45 +61,6 @@ angular.module('schwanzen')
           $scope.comboTab.disabled = true;
           $log.debug('Disabled again.');
         }
-
-      });
-
-    };
-
-    var callDialog = function(dialog, callback) {
-
-      dialog.addEventListener('change', function() {
-
-        var result = dialog.value;
-
-        if (typeof callback === 'function') {
-
-          callback(result);
-
-        }
-
-      }, false);
-
-      dialog.click();
-
-    };
-
-    $scope.chooseFile = function() {
-
-      $log.debug('Choosing file...');
-
-      var dialog = document.createElement('input');
-
-      dialog.type = 'file';
-      dialog.multiple = 'multiple';
-
-      callDialog(dialog, function(fileName) {
-
-        $scope.addTab(fileName, function() {
-
-          $log.debug('Added ' + fileName);
-
-        });
 
       });
 

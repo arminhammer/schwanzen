@@ -25,6 +25,6 @@ angular.module('schwanzen', [
 
       $urlRouterProvider.otherwise('/');
 
-      $logProvider.debugEnabled(false);
+      $logProvider.debugEnabled(true);
 
     }]);
