@@ -3,11 +3,6 @@
 angular.module('schwanzen')
   .controller('MainCtrl', ['$scope', '$log', 'TabService', function ($scope, $log, TabService) {
 
-    // How many lines to keep in a tail file before removing them.
-    //$scope.tailLengthMax = 2000;
-    //Interval to wait before polling the file again
-    //$scope.updateInterval = 1000;
-
     // Object that references all of the current tabs.
     $scope.tabs = TabService.tabs;
 
@@ -37,8 +32,6 @@ angular.module('schwanzen')
           });
 
           $scope.tabs[filename] = tab;
-
-          //$scope.$watch($scope.tabs[filename].lines);
 
           if(TabService.count() > 1) {
             $scope.comboTab.disabled = false;
