@@ -14,14 +14,16 @@ angular.module('schwanzen')
 
         this.newLines++;
         this.content += line;
+        //this.content += encodeURI(line);
 
         if(this.content.length > ConfigService.maxLength) {
           $log.debug('Slicing...');
-          var lineIndex = this.content.indexOf('<br/>');
-          var slice = this.content.slice(lineIndex+5);
-          $log.debug(slice);
-          this.content = slice;
+          var substr1 = this.content.substr(1000);
+          var lineIndex = substr1.indexOf('<br/>');
+          var substr2 = substr1.substr(lineIndex+5);
+          this.content = substr2;
         }
+
         $log.debug(this.content.length);
         $log.debug(this.content.indexOf('<br/>'));
 
