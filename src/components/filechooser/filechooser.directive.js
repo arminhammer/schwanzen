@@ -1,16 +1,16 @@
-"use strict";
+'use strict';
 
 angular.module('schwanzen')
-  .directive('fileChooser', function() {
+  .directive('fileChooser', ['$document', '$log', function($document, $log) {
     return {
       scope: true,
       replace: true,
       restrict: 'E',
-      link: function(scope, element, attrs) {
+      link: function(scope, element) {
 
         element.bind('click', function () {
 
-          var dialog = document.createElement('input');
+          var dialog = $document[0].createElement('input');
           dialog.type = 'file';
           //dialog.multiple = 'multiple';
           dialog.addEventListener('change', function() {
@@ -34,4 +34,4 @@ angular.module('schwanzen')
       '<i class="mdi-file-folder"></i></span>' +
       '</a></li>'
     };
-  });
+  }]);
