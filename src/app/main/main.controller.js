@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module('schwanzen')
-  .controller('MainCtrl', ['$scope', '$log', 'TabService', function ($scope, $log, TabService) {
+  .controller('MainCtrl', ['$scope', '$log', '$sce', 'TabService', 'ConfigService', function ($scope, $log, $sce, TabService, ConfigService) {
+
+    // TODO: Make sure this links to the view.
+    $scope.maxLength = ConfigService.maxLength;
 
     // Object that references all of the current tabs.
     $scope.tabs = TabService.tabs;
@@ -16,10 +19,11 @@ angular.module('schwanzen')
 
           tab.tail.on('line', function(line) {
 
-            $log.debug('We found a line, and it is ' + line);
+            var trustedLine = $sce.trustAsHtml(line);
+            $log.debug('We found a line, and it is ' + trustedLine);
 
-            tab.addLine(line+'<br/>');
-            $scope.comboTab.addLine(line+'<br/>');
+            tab.addLine(trustedLine+'<br/>');
+            $scope.comboTab.addLine(trustedLine+'<br/>');
 
             $scope.$applyAsync();
 

@@ -64,7 +64,7 @@
 
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-          <div class="well" id="tabContent" ng-bind-html="comboTab.content | highlight:searchQuery">
+          <div class="well" id="tabContent" ng-bind-html="comboTab.content | limitTo: -100000 | highlight:searchQuery">
 
           </div>
 
@@ -84,8 +84,7 @@
 
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-          <div class="well" id="tabContent" ng-bind-html="tab.content | highlight:searchQuery">
-
+          <div class="well" id="tabContent" ng-bind-html="tab.content | limitTo: -100000 | highlight:searchQuery">
           </div>
 
         </div>

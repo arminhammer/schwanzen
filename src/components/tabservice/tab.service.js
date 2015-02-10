@@ -16,16 +16,16 @@ angular.module('schwanzen')
         this.content += line;
         //this.content += encodeURI(line);
 
-        if(this.content.length > ConfigService.maxLength) {
-          $log.debug('Slicing...');
-          var substr1 = this.content.substr(1000);
-          var lineIndex = substr1.indexOf('<br/>');
-          var substr2 = substr1.substr(lineIndex+5);
-          this.content = substr2;
+        if(this.content.length > (ConfigService.maxLength*2)) {
+          $log.debug(this.content.length + ', Slicing...');
+          var substr = this.content.substr(ConfigService.maxLength);
+          //var lineIndex = substr1.indexOf('<br/>');
+          //var substr2 = substr1.substr(lineIndex+5);
+          this.content = substr;
         }
 
         $log.debug(this.content.length);
-        $log.debug(this.content.indexOf('<br/>'));
+        //$log.debug(this.content.indexOf('<br/>'));
 
       };
 

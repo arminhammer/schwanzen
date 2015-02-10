@@ -9,7 +9,11 @@ angular.module('schwanzen')
 
       try {
 
-        deferred.resolve(NodeService.$Tail.startTailing(filename));
+        deferred.resolve(NodeService.$Tail.startTailing({
+          fd: filename,
+          ms: 500,
+          interval: 500
+        }));
 
       }
 
