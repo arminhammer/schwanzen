@@ -3,6 +3,7 @@
 var gulp = require('gulp');
 var shell = require('gulp-shell');
 var NwBuilder = require('node-webkit-builder');
+var zip = require('gulp-zip');
 
 require('require-dir')('./gulp');
 
@@ -13,7 +14,9 @@ gulp.task('default', ['clean'], function () {
 var nw = new NwBuilder({
   files: './dist/**/**', // use the glob format
   platforms: ['linux', 'win', 'osx'],
-  buildDir: './nwdist'
+  buildDir: './nwdist',
+  appVersion: null
+  //buildType: 'versioned'
   //version: 'v0.11.4'
 });
 
@@ -42,6 +45,14 @@ gulp.task('package', ['package.json', 'move-node-modules', 'fonts:custom'], func
   }).catch(function (error) {
     console.error(error);
   });
+
+});
+
+gulp.task('archive', function() {
+
+  return gulp.src('./nwdist/schwanzen/win64/**/*')
+    .pipe(zip('schwanzen-0.2.0-win64.zip'))
+    .pipe(gulp.dest('./nwdist'));
 
 });
 

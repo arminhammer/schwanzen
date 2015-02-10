@@ -1,6 +1,6 @@
 {
   "name": "schwanzen",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "src/index.html",
   "dependencies": {
     "file-tail": "^0.3.0"
@@ -29,7 +29,7 @@
     },
     "win64": {
       "window": {
-        "toolbar": true
+        "toolbar": false
       },
       "main": "index.html"
     },
@@ -98,6 +98,7 @@
     "gulp-size": "~1.2.0",
     "gulp-uglify": "~1.1.0",
     "gulp-useref": "~1.1.1",
+    "gulp-zip": "^2.0.2",
     "http-proxy": "~1.8.1",
     "jade": "~1.9.1",
     "jshint-stylish": "~1.0.0",
