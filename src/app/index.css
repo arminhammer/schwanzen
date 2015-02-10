@@ -68,6 +68,7 @@
   margin-bottom: 100px;
   font-family: sourceCodePro;
   font-size: 1em;
+  word-wrap: break-word;
 }
 
 #tabContent > table > tbody > tr > td {

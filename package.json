@@ -11,7 +11,7 @@
     "width": 1400,
     "height": 800,
     "position": "mouse",
-    "min_width": 1000,
+    "min_width": 400,
     "min_height": 300
   },
   "platformOverrides": {
