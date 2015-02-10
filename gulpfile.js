@@ -51,7 +51,7 @@ gulp.task('package', ['package.json', 'move-node-modules', 'fonts:custom'], func
 gulp.task('archive', function() {
 
   return gulp.src('./nwdist/schwanzen/win64/**/*')
-    .pipe(zip('schwanzen-0.2.0-win64.zip'))
+    .pipe(zip('schwanzen-0.2.1-win64.zip'))
     .pipe(gulp.dest('./nwdist'));
 
 });

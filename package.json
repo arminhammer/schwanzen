@@ -1,6 +1,6 @@
 {
   "name": "schwanzen",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "src/index.html",
   "dependencies": {
     "file-tail": "^0.3.0"
@@ -8,8 +8,8 @@
   "window": {
     "frame": true,
     "toolbar": true,
-    "width": 1400,
-    "height": 800,
+    "width": 800,
+    "height": 600,
     "position": "mouse",
     "min_width": 400,
     "min_height": 300
